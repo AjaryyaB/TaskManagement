@@ -1,32 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:taskmanagement/LandingPage.dart';
+import 'package:taskmanagement/main.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp( MaterialApp(
+      home: LandingPage()));
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
 
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-
-      home: Scaffold(
-        body: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Text("hello"),
-            Text("taskmanagement"),
-
-          ],
-        )),
-      )
-    );
-  }
-}
 
 

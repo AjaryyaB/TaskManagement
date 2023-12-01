@@ -1,3 +1,3 @@
 class AppConstants {
-  static const String backgroundImage = "assets/images/bg.jpg";
+  static const String backgroundImage = "assets/images/bg.png";
 }

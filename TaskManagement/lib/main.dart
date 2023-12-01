@@ -5,28 +5,32 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-
       home: Scaffold(
-        body: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
+        body: Stack(
+          fit: StackFit.expand,
           children: [
-            Text("hello"),
-            Text("taskmanagement"),
-
+            Image.asset(
+              "assets/images/bg.jpg",
+              fit: BoxFit.cover,
+            ),
+            Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  // Your other content here
+                ],
+              ),
+            ),
           ],
-        )),
-      )
+        ),
+      ),
     );
   }
 }
-
-

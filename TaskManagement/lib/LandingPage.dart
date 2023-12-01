@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:taskmanagement/constants/BackgroundImage.dart';
 
 class LandingPage extends StatefulWidget {
   const LandingPage({super.key});
@@ -9,25 +10,22 @@ class LandingPage extends StatefulWidget {
 }
 
 class _LandingPageState extends State<LandingPage> {
-
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
-      body: Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('assets/images/bg.png'), // Replace with your image path
-            fit: BoxFit.cover,
-          ),
-        ),
-        child: Center(
-          child: Container(
+        body: BackgroundStack(
+            child: Center(
+      child: Container(
+        width: screenWidth * 0.85,
+        height: screenHeight * 0.75,
 
-          ),
-        ),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(20.0),
+          )
       ),
-    );
+    )));
   }
 }

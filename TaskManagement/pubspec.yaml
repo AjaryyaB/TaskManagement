@@ -61,12 +61,15 @@ flutter:
 
 
   assets:
-     - assets/images/bg.png
-     - assets/images/bg@2x.png
-     - assets/images/bg@3x.png
+     - assets/images/bg.jpg
+     - assets/images/bg@2x.jpg
+     - assets/images/bg@3x.jpg
      - assets/images/Task-Management.jpg
      - assets/images/Task-Management@2x.jpg
      - assets/images/Task-Management@3x.jpg
+     - assets/images/logo@3x.png
+     - assets/images/logo@2x.png
+     - assets/images/logo.png
      - assets/images/Task-Management.png
      - assets/images/Task-Management@2x.png
      - assets/images/Task-Management@3x.png

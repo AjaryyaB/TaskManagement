@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:taskmanagement/Dashboard.dart';
+import 'package:taskmanagement/Login.dart';
 import 'package:taskmanagement/constants/AppConstants.dart';
 import 'package:taskmanagement/constants/BackgroundImage.dart';
 import 'package:taskmanagement/constants/AppConstants.dart';
@@ -66,7 +67,7 @@ class _LandingPageState extends State<LandingPage> {
 
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => Dashboard()),
+                      MaterialPageRoute(builder: (context) => Login()),
                     );
                   },
                   child: Text("Let's Start",style: TextStyle(

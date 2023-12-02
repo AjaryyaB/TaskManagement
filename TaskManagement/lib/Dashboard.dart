@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:taskmanagement/constants/AppConstants.dart';
 import 'package:taskmanagement/constants/BackgroundImage.dart';
 
 class Dashboard extends StatefulWidget {
@@ -22,13 +23,14 @@ class _DashboardState extends State<Dashboard> {
       body: Stack(
         children: [
           BackgroundStack(
-            child: Center(
-              child: Text(
-                'Your Dashboard Content Goes Here',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 24.0,
-                  fontWeight: FontWeight.bold,
+            child: Padding(
+              padding: const EdgeInsets.only(top:28.0),
+              child: Container(
+               // width: screenWidth*1.5,
+                height: screenHeight *0.70,
+                decoration: BoxDecoration(
+                  color: AppConstants.cardbackground,
+                  borderRadius: BorderRadius.circular(20.0),
                 ),
               ),
             ),
@@ -40,19 +42,26 @@ class _DashboardState extends State<Dashboard> {
             child: AppBar(
               title: Row(
                 children: [
-                  // IconButton(
-                  //   icon: Icon(Icons.menu),
-                  //   onPressed: () {
-                  //     _scaffoldKey.currentState?.openDrawer();
-                  //   },
-                  // ),
-                  SizedBox(width: 16), // Add some space between the menu icon and the circular avatar
                   CircleAvatar(
-                    radius: 20, // Adjust the radius as needed
-                    backgroundImage: AssetImage('assets/your_photo.jpg'), // Replace with your actual photo
+                    radius: 20,
+                    backgroundImage: AssetImage('assets/your_photo.jpg'),
                   ),
-                  SizedBox(width: 16), // Add some space between the circular avatar and the title
-                  Text('Dashboard'),
+                  SizedBox(width: 16),
+                  Column(
+                    children: [
+                      Text('Dashboard'),
+                      Text('Dashboard'),
+                    ],
+                  ),
+                  Spacer(),
+                  IconButton(
+                    icon: Icon(Icons.search),
+                    onPressed: () {},
+                  ),
+                  IconButton(
+                    icon: Icon(Icons.notifications),
+                    onPressed: () {},
+                  ),
                 ],
               ),
               backgroundColor: Colors.transparent,
@@ -88,6 +97,34 @@ class _DashboardState extends State<Dashboard> {
               title: Text('Item 2'),
               onTap: () {
                 // Handle item 2 tap
+              },
+            ),
+          ],
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          // Handle the floating action button tap
+        },
+        child: Icon(Icons.add),
+      ),
+      bottomNavigationBar: BottomAppBar(
+        color: Colors.white,
+        shape: CircularNotchedRectangle(),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            IconButton(
+              icon: Icon(Icons.home),
+              onPressed: () {
+                // Handle home button tap
+              },
+            ),
+            IconButton(
+              icon: Icon(Icons.settings),
+              onPressed: () {
+                // Handle settings button tap
               },
             ),
           ],

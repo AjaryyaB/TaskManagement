@@ -73,6 +73,13 @@ flutter:
      - assets/images/Task-Management.png
      - assets/images/Task-Management@2x.png
      - assets/images/Task-Management@3x.png
+     - assets/images/Iconly-Light-Outline-Profile.png
+     - assets/images/Iconly-Light-Outline-Profile@2x.png
+     - assets/images/Iconly-Light-Outline-Profile@3x.png
+     - assets/images/passwordicon.png
+     - assets/images/passwordicon@2x.png
+     - assets/images/passwordicon@3x.png
+
 
   # To add assets to your application, add an assets section, like this:
   # assets:

@@ -3,5 +3,7 @@ import 'package:taskmanagement/LandingPage.dart';
 import 'package:taskmanagement/main.dart';
 
 void main() {
-  runApp(MaterialApp(home: LandingPage()));
+  runApp(MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: LandingPage()));
 }

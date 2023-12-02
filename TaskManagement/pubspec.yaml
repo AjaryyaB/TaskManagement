@@ -67,6 +67,9 @@ flutter:
      - assets/images/Task-Management.jpg
      - assets/images/Task-Management@2x.jpg
      - assets/images/Task-Management@3x.jpg
+     - assets/images/Task-Management.png
+     - assets/images/Task-Management@2x.png
+     - assets/images/Task-Management@3x.png
 
   # To add assets to your application, add an assets section, like this:
   # assets:

@@ -24,7 +24,7 @@ class Login extends StatelessWidget {
           height: screenSize.height * 0.65, // 60% of screen height
 
           child: Card(
-            color: AppConstants.cardLightColor,
+            color: AppConstants.cardbackground,
             shape: RoundedRectangleBorder(
               borderRadius:
                   BorderRadius.circular(20.0), // Adjust the value as needed

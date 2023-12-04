@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:taskmanagement/CreateTask.dart';
 import 'package:taskmanagement/constants/AppConstants.dart';
 import 'package:taskmanagement/constants/BackgroundImage.dart';
 
@@ -105,7 +106,11 @@ class _DashboardState extends State<Dashboard> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          // Handle the floating action button tap
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => CreateTask()),
+          );
         },
         child: Icon(Icons.add),
       ),

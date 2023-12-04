@@ -1,7 +1,44 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:taskmanagement/EntityCards.dart';
 import 'package:taskmanagement/constants/AppConstants.dart';
 import 'package:taskmanagement/constants/BackgroundImage.dart';
+List<Company> companies = [
+  Company(
+    name: 'Company A',
+    tasks: [
+      Task(status: 'open'),
+      Task(status: 'open'),
+      Task(status: 'inprogress'),
+      Task(status: 'overdue'),
+    ],
+  ),
+  Company(
+    name: 'Company B',
+    tasks: [
+      Task(status: 'open'),
+      Task(status: 'inprogress'),
+      Task(status: 'inprogress'),
+    ],
+  ),
+  Company(
+    name: 'Company C',
+    tasks: [
+      Task(status: 'open'),
+      Task(status: 'inprogress'),
+      Task(status: 'inprogress'),
+    ],
+  ),
+  Company(
+    name: 'Company D',
+    tasks: [
+      Task(status: 'open'),
+      Task(status: 'inprogress'),
+      Task(status: 'inprogress'),
+    ],
+  ),
+  // Add more companies as needed
+];
 
 class Dashboard extends StatefulWidget {
   const Dashboard({Key? key}) : super(key: key);
@@ -23,16 +60,28 @@ class _DashboardState extends State<Dashboard> {
       body: Stack(
         children: [
           BackgroundStack(
-            child: Padding(
-              padding: const EdgeInsets.only(top:28.0),
-              child: Container(
-               // width: screenWidth*1.5,
-                height: screenHeight *0.70,
-                decoration: BoxDecoration(
-                  color: AppConstants.cardbackground,
-                  borderRadius: BorderRadius.circular(20.0),
-                ),
-              ),
+            child: Column(
+              children: [
+                SizedBox(
+                    height:120),
+                Padding(
+                  padding: const EdgeInsets.only(top:36.0),
+                  child: Container(
+                   // width: screenWidth*1.5,
+                    height: screenHeight *0.77,
+                    decoration: BoxDecoration(
+                      color: AppConstants.cardbackground,
+                      borderRadius: BorderRadius.only(topLeft: Radius.circular(20.0),
+                        topRight: Radius.circular(20.0),),
+
+                    ),
+                     // child:
+                       //  MyApp(companies: companies),
+
+                      ),
+                  ),
+
+              ],
             ),
           ),
           Positioned(
@@ -40,6 +89,7 @@ class _DashboardState extends State<Dashboard> {
             left: 0,
             right: 0,
             child: AppBar(
+              toolbarHeight: screenHeight*0.10,
               title: Row(
                 children: [
                   CircleAvatar(
@@ -50,7 +100,9 @@ class _DashboardState extends State<Dashboard> {
                   Column(
                     children: [
                       Text('Dashboard'),
-                      Text('Dashboard'),
+                      Text('Project Manager',style: TextStyle(
+                        fontSize: 16,
+                      ),),
                     ],
                   ),
                   Spacer(),
@@ -110,6 +162,7 @@ class _DashboardState extends State<Dashboard> {
         child: Icon(Icons.add),
       ),
       bottomNavigationBar: BottomAppBar(
+       // height: screenHeight*0.10,
         color: Colors.white,
         shape: CircularNotchedRectangle(),
         child: Row(
@@ -117,6 +170,19 @@ class _DashboardState extends State<Dashboard> {
           children: [
             IconButton(
               icon: Icon(Icons.home),
+              onPressed: () {
+                // Handle home button tap
+              },
+            ),
+            IconButton(
+              icon: Icon(Icons.bar_chart),
+              onPressed: () {
+                // Handle home button tap
+              },
+            ),
+            SizedBox(width: 20,),
+            IconButton(
+              icon: Icon(Icons.calendar_month),
               onPressed: () {
                 // Handle home button tap
               },

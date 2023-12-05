@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:taskmanagement/Dashboard.dart';
 import 'package:taskmanagement/constants/AppConstants.dart';
 import 'package:taskmanagement/constants/BackgroundImage.dart';
+import 'package:taskmanagement/constants/BuildTextFormField.dart';
 
 class Login extends StatelessWidget {
 
@@ -76,122 +77,121 @@ class Login extends StatelessWidget {
     return Scaffold(
       body: BackgroundStack(
         child: SingleChildScrollView(
-          physics: BouncingScrollPhysics(),
-            child:
-                Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [Image.asset("assets/images/logo.png")],
-          ),
-          SizedBox(
-            height: screenSize.height * 0.050,
-          ),
-          Container(
-            constraints: BoxConstraints(maxWidth: 320),
-            width: screenSize.width * 0.8, // 80% of screen width
-            height: screenSize.height * 0.70, // 60% of screen height
+          child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [Image.asset("assets/images/logo.png")],
+            ),
+            SizedBox(
+              height: screenSize.height * 0.010,
+            ),
+            Container(
+              constraints: BoxConstraints(maxWidth: 320),
+              // width: screenSize.width * 0.8, // 80% of screen width
+              // height: screenSize.height * 0.70, // 60% of screen height
 
-            child: Card(
-              color: AppConstants.cardbackground,
-              shape: RoundedRectangleBorder(
-                borderRadius:
-                    BorderRadius.circular(20.0), // Adjust the value as needed
+              child: Card(
+                color: AppConstants.cardbackground,
+                shape: RoundedRectangleBorder(
+          borderRadius:
+              BorderRadius.circular(20.0), // Adjust the value as needed
+                ),
+                elevation: 5, // Add elevation for a shadow effect
+                child: Padding(
+          padding: EdgeInsets.all(18.0),
+          child: Column(
+            children: [
+              buildHeading("Sign in"),
+              SizedBox(
+                height: screenSize.height * 0.015,
               ),
-              elevation: 5, // Add elevation for a shadow effect
-              child: Padding(
-                padding: EdgeInsets.all(18.0),
+              Form(
+                key: _formKey,
                 child: Column(
                   children: [
-                    buildHeading("Sign in"),
+                    buildInputLabel("Username"),
                     SizedBox(
                       height: screenSize.height * 0.015,
                     ),
-                    Form(
-                      key: _formKey,
-                      child: Column(
-                        children: [
-                          buildInputLabel("Username"),
-                          SizedBox(
-                            height: screenSize.height * 0.015,
-                          ),
-                          buildTextFormField(
-                              "Enter Username", AppConstants.personIcon),
-                          SizedBox(
-                            height: screenSize.height * 0.015,
-                          ),
-                          buildInputLabel("Password"),
-                          SizedBox(
-                            height: screenSize.height * 0.015,
-                          ),
-                          buildTextFormField(
-                              "Enter Password", AppConstants.passwordIcon),
-                        ],
-                      ),
-                    ),
+
+                    BuildTextFormField.buildTextFormField("Enter Username", AppConstants.personIcon),
                     SizedBox(
                       height: screenSize.height * 0.015,
                     ),
-                    buildForgotPassword(),
+                    buildInputLabel("Password"),
                     SizedBox(
                       height: screenSize.height * 0.015,
                     ),
-                    buildHeading("Or"),
-                    SizedBox(
-                      height: screenSize.height * 0.015,
-                    ),
-                    Center(
-                      child: Text(
-                        'Sign in by MPIN',
-                        style: TextStyle(
-                          color: AppConstants.underlineColor,
-                          decoration: TextDecoration.underline,
-                          decorationColor: AppConstants.underlineColor,
-                          decorationThickness: 2, // Set thickness as needed
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: screenSize.height * 0.050,
-                    ),
-                    SizedBox(
-                      width: screenSize.width * 0.60,
-                      height: screenSize.height * 0.06,
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          // Set the background color of the button
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15.0),
-                          ),
-                          backgroundColor: AppConstants.boldBlue,
-                        ),
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => Dashboard()),
-                          );
-                        },
-                        child: Text(
-                          "Sign in",
-                          style: TextStyle(
-                            fontSize: 18,
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: screenSize.height * 0.015,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [Text("Don't have account ?"), Text("Sign Up")],
-                    )
+
+                    BuildTextFormField.buildTextFormField( "Enter Password", AppConstants.passwordIcon),
                   ],
                 ),
               ),
-            ),
-          )
-        ])),
+              SizedBox(
+                height: screenSize.height * 0.015,
+              ),
+              buildForgotPassword(),
+              SizedBox(
+                height: screenSize.height * 0.015,
+              ),
+              buildHeading("Or"),
+              SizedBox(
+                height: screenSize.height * 0.015,
+              ),
+              Center(
+                child: Text(
+                  'Sign in by MPIN',
+                  style: TextStyle(
+                    color: AppConstants.underlineColor,
+                    decoration: TextDecoration.underline,
+                    decorationColor: AppConstants.underlineColor,
+                    decorationThickness: 2, // Set thickness as needed
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: screenSize.height * 0.050,
+              ),
+              SizedBox(
+                width: screenSize.width * 0.60,
+                height: screenSize.height * 0.06,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    // Set the background color of the button
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15.0),
+                    ),
+                    backgroundColor: AppConstants.boldBlue,
+                  ),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => Dashboard()),
+                    );
+                  },
+                  child: Text(
+                    "Sign in",
+                    style: TextStyle(
+                      fontSize: 18,
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: screenSize.height * 0.015,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [Text("Don't have account ?"), Text("Sign Up")],
+              )
+            ],
+          ),
+                ),
+              ),
+            )
+          ]),
+        ),
       ),
     );
   }

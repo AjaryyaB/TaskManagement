@@ -9,15 +9,19 @@ class BackgroundStack extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      fit: StackFit.expand,
-      children: [
-        Image.asset(
-          AppConstants.backgroundImage, // Use the global background image
-          fit: BoxFit.cover,
-        ),
-        Center(child: child),
-      ],
+    final screenSize = MediaQuery.of(context).size;
+    return Container(
+      height: screenSize.height,
+      child: Stack(
+        fit: StackFit.expand,
+        children: [
+          Image.asset(
+            AppConstants.backgroundImage, // Use the global background image
+            fit: BoxFit.cover,
+          ),
+          Center(child: child),
+        ],
+      ),
     );
   }
 }

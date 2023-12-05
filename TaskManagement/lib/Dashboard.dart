@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:taskmanagement/CreateTask.dart';
 import 'package:taskmanagement/EntityCards.dart';
 import 'package:taskmanagement/constants/AppConstants.dart';
 import 'package:taskmanagement/constants/BackgroundImage.dart';
@@ -58,7 +59,7 @@ class _DashboardState extends State<Dashboard> {
                 children: [
                   CircleAvatar(
                     radius: 20,
-                    backgroundImage: AssetImage('assets/your_photo.jpg'),
+                    // backgroundImage: AssetImage('assets/your_photo.jpg'),
                   ),
                   SizedBox(width: 16),
                   Column(
@@ -121,7 +122,11 @@ class _DashboardState extends State<Dashboard> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          // Handle the floating action button tap
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => CreateTask()),
+          );
         },
         child: Icon(Icons.add),
       ),

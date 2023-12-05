@@ -3,42 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:taskmanagement/EntityCards.dart';
 import 'package:taskmanagement/constants/AppConstants.dart';
 import 'package:taskmanagement/constants/BackgroundImage.dart';
-List<Company> companies = [
-  Company(
-    name: 'Company A',
-    tasks: [
-      Task(status: 'open'),
-      Task(status: 'open'),
-      Task(status: 'inprogress'),
-      Task(status: 'overdue'),
-    ],
-  ),
-  Company(
-    name: 'Company B',
-    tasks: [
-      Task(status: 'open'),
-      Task(status: 'inprogress'),
-      Task(status: 'inprogress'),
-    ],
-  ),
-  Company(
-    name: 'Company C',
-    tasks: [
-      Task(status: 'open'),
-      Task(status: 'inprogress'),
-      Task(status: 'inprogress'),
-    ],
-  ),
-  Company(
-    name: 'Company D',
-    tasks: [
-      Task(status: 'open'),
-      Task(status: 'inprogress'),
-      Task(status: 'inprogress'),
-    ],
-  ),
-  // Add more companies as needed
-];
 
 class Dashboard extends StatefulWidget {
   const Dashboard({Key? key}) : super(key: key);
@@ -75,8 +39,8 @@ class _DashboardState extends State<Dashboard> {
                         topRight: Radius.circular(20.0),),
 
                     ),
-                     // child:
-                       //  MyApp(companies: companies),
+                      child:
+                         MyApp(),
 
                       ),
                   ),

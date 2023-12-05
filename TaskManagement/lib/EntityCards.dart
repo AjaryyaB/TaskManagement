@@ -1,39 +1,45 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
-class Task {
-  String status;
+class Entity {
+  int entityId;
+  String entityName;
+  int open;
+  int inProgress;
+  int overdue;
 
-  Task({required this.status});
+  Entity({
+    required this.entityId,
+    required this.entityName,
+    required this.open,
+    required this.inProgress,
+    required this.overdue,
+  });
 }
 
-class Company {
-  String name;
-  List<Task> tasks;
+class EntityCard extends StatelessWidget {
+  final Entity entity;
 
-  Company({required this.name, required this.tasks});
-}
-
-class CompanyCard extends StatelessWidget {
-  final Company company;
-
-  CompanyCard({required this.company});
+  EntityCard({required this.entity});
 
   @override
   Widget build(BuildContext context) {
+    //double cardHeight = 150.0;
     return Card(
-      elevation: 4,
       margin: EdgeInsets.all(10),
       child: Container(
-        width: 200, // Adjust the width as needed
+       // height: cardHeight,
+        width: 160,
+
         child: ListTile(
-          title: Text(company.name),
+          title: Text(entity.entityName),
           subtitle: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Tasks: ${company.tasks.length}'),
-              Text('Open: ${company.tasks.where((task) => task.status == 'open').length}'),
-              Text('In Progress: ${company.tasks.where((task) => task.status == 'inprogress').length}'),
-              Text('Overdue: ${company.tasks.where((task) => task.status == 'overdue').length}'),
+              Text('Open: ${entity.open}'),
+              Text('In Progress: ${entity.inProgress}'),
+              Text('Overdue: ${entity.overdue}'),
             ],
           ),
         ),
@@ -43,51 +49,49 @@ class CompanyCard extends StatelessWidget {
 }
 
 void main() {
-  // Replace this with the data you get from your API
-  List<Company> companies = [
-    Company(
-      name: 'Company A',
-      tasks: [
-        Task(status: 'open'),
-        Task(status: 'open'),
-        Task(status: 'inprogress'),
-        Task(status: 'overdue'),
-      ],
-    ),
-    Company(
-      name: 'Company B',
-      tasks: [
-        Task(status: 'open'),
-        Task(status: 'inprogress'),
-        Task(status: 'inprogress'),
-      ],
-    ),
-    Company(
-      name: 'Company C',
-      tasks: [
-        Task(status: 'open'),
-        Task(status: 'inprogress'),
-        Task(status: 'inprogress'),
-      ],
-    ),
-    Company(
-      name: 'Company D',
-      tasks: [
-        Task(status: 'open'),
-        Task(status: 'inprogress'),
-        Task(status: 'inprogress'),
-      ],
-    ),
-    // Add more companies as needed
-  ];
-
-  runApp(MyApp(companies: companies));
+  runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
-  final List<Company> companies;
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
 
-  MyApp({required this.companies});
+class _MyAppState extends State<MyApp> {
+  List<Entity> entities = [];
+
+  @override
+  void initState() {
+    super.initState();
+    fetchData();
+  }
+
+  Future<void> fetchData() async {
+    try {
+      final response = await http.get(
+          Uri.parse('http://192.168.5.214:8080/taskManagement/getAllEntityDetails'));
+
+      if (response.statusCode == 200) {
+        List<dynamic> data = jsonDecode(response.body);
+        List<Entity> entityList = data.map((item) => Entity(
+          entityId: item['entityId'],
+          entityName: item['entityName'],
+          open: item['open'],
+          inProgress: item['inprogress'],
+          overdue: item['overdue'],
+        )).toList();
+
+        setState(() {
+          entities = entityList;
+        });
+      } else {
+        throw Exception(
+            'Failed to load data. Status Code: ${response.statusCode}, Error: ${response.body}');
+      }
+    } catch (error) {
+      print("Error: $error");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -95,16 +99,16 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         // appBar: AppBar(
-        //   title: Text('Company Task Status'),
+        //   title: Text('Entities Task Status'),
         // ),
-        body: Container(
-          height: 200, // Set a fixed height
-          child: SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              children: companies.map((company) => CompanyCard(company: company)).toList(),
-            ),
-          ),
+        body: entities.isEmpty
+            ? Center(child: CircularProgressIndicator())
+            : ListView.builder(
+          scrollDirection: Axis.horizontal,
+          itemCount: entities.length,
+          itemBuilder: (context, index) {
+            return EntityCard(entity: entities[index]);
+          },
         ),
       ),
     );

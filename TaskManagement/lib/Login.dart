@@ -3,10 +3,10 @@ import 'package:taskmanagement/Dashboard.dart';
 import 'package:taskmanagement/constants/AppConstants.dart';
 import 'package:taskmanagement/constants/BackgroundImage.dart';
 import 'package:taskmanagement/constants/BuildTextFormField.dart';
+import 'package:taskmanagement/constants/Toast.dart';
 
 class Login extends StatelessWidget {
-
-   Login({Key? key}) : super(key: key);
+  Login({Key? key}) : super(key: key);
 
   Widget buildInputLabel(String labelName) {
     return Align(
@@ -88,86 +88,89 @@ class Login extends StatelessWidget {
               height: screenSize.height * 0.050,
             ),
             Container(
-              constraints: BoxConstraints(maxWidth: 320),             
+              constraints: BoxConstraints(maxWidth: 320),
               child: Card(
                 color: AppConstants.cardbackground,
                 shape: RoundedRectangleBorder(
-          borderRadius:
-              BorderRadius.circular(20.0), // Adjust the value as needed
+                  borderRadius:
+                      BorderRadius.circular(20.0), // Adjust the value as needed
                 ),
                 elevation: 5, // Add elevation for a shadow effect
                 child: Padding(
-          padding: EdgeInsets.all(18.0),
-          child: Column(
-            children: [
-              buildHeading("Sign in"),
-              SizedBox(
-                height: screenSize.height * 0.015,
-              ),
-              Form(
-                key: _formKey,
-                child: Column(
-                  children: [
-                    buildInputLabel("Username"),
-                    SizedBox(
-                      height: screenSize.height * 0.015,
-                    ),
-
-                    BuildTextFormField.buildTextFormField("Enter Username", AppConstants.personIcon,emailController),
-                    SizedBox(
-                      height: screenSize.height * 0.015,
-                    ),
-                    buildInputLabel("Password"),
-                    SizedBox(
-                      height: screenSize.height * 0.015,
-                    ),
-
-                    BuildTextFormField.buildTextFormField( "Enter Password", AppConstants.passwordIcon,passwordController),
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: screenSize.height * 0.015,
-              ),
-              buildForgotPassword(),
-              SizedBox(
-                height: screenSize.height * 0.015,
-              ),
-
-              SizedBox(
-                height: screenSize.height * 0.050,
-              ),
-              SizedBox(
-                width: screenSize.width * 0.60,
-                height: screenSize.height * 0.06,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    // Set the background color of the button
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15.0),
-                    ),
-                    backgroundColor: AppConstants.boldBlue,
+                  padding: EdgeInsets.all(18.0),
+                  child: Column(
+                    children: [
+                      buildHeading("Sign in"),
+                      SizedBox(
+                        height: screenSize.height * 0.015,
+                      ),
+                      Form(
+                        key: _formKey,
+                        child: Column(
+                          children: [
+                            buildInputLabel("Username"),
+                            SizedBox(
+                              height: screenSize.height * 0.015,
+                            ),
+                            BuildTextFormField.buildTextFormField(
+                                "Enter Username",
+                                AppConstants.personIcon,
+                                emailController),
+                            SizedBox(
+                              height: screenSize.height * 0.015,
+                            ),
+                            buildInputLabel("Password"),
+                            SizedBox(
+                              height: screenSize.height * 0.015,
+                            ),
+                            BuildTextFormField.buildTextFormField(
+                                "Enter Password",
+                                AppConstants.passwordIcon,
+                                passwordController),
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        height: screenSize.height * 0.015,
+                      ),
+                      buildForgotPassword(),
+                      SizedBox(
+                        height: screenSize.height * 0.015,
+                      ),
+                      SizedBox(
+                        height: screenSize.height * 0.050,
+                      ),
+                      SizedBox(
+                        width: screenSize.width * 0.60,
+                        height: screenSize.height * 0.06,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            // Set the background color of the button
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15.0),
+                            ),
+                            backgroundColor: AppConstants.boldBlue,
+                          ),
+                          onPressed: () {
+                            print("Email : ${emailController.text}");
+                            print("Email : ${emailController.text}");
+                            Toastify.successToast(context, "Login Success");
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Dashboard()),
+                            );
+                          },
+                          child: Text(
+                            "Sign in",
+                            style: TextStyle(
+                              fontSize: 18,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                  onPressed: () {
-                    print("Email : ${emailController.text}");
-                    print("Email : ${emailController.text}");
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => Dashboard()),
-                    );
-                  },
-                  child: Text(
-                    "Sign in",
-                    style: TextStyle(
-                      fontSize: 18,
-                    ),
-                  ),
-                ),
-              ),
-
-            ],
-          ),
                 ),
               ),
             )

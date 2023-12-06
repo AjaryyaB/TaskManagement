@@ -1,4 +1,6 @@
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:taskmanagement/Dashboard.dart';
 import 'package:taskmanagement/constants/AppConstants.dart';
 import 'package:taskmanagement/constants/BackgroundImage.dart';
 import 'package:taskmanagement/constants/BuildCalenderTextField.dart';
@@ -52,12 +54,23 @@ class _CreateTaskState extends State<CreateTask> {
 
   int _selectedRadio = 0;
   List<String> radioLabels = ['High', 'Medium', 'Low'];
+  void _openFileExplorer() async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles();
 
+    if (result != null) {
+      // Do something with the selected files (result.files)
+      // For example, you can get the paths of the selected files:
+      List<String> filePaths = result.paths.map((path) => path!).toList();
+      print('Selected files: $filePaths');
+    } else {
+      // User canceled the file picker
+    }
+  }
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
     final scrollContent = Column(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
       children: [
         AppBar(
           title: const Text("Create Task"),
@@ -75,7 +88,7 @@ class _CreateTaskState extends State<CreateTask> {
                   ),
                 ),
                 child: Padding(
-                    padding: const EdgeInsets.all(18.0),
+                    padding: const EdgeInsets.all(24.0),
                     child: Column(
                       children: [
                         BuildLabelText.buildLabelText("Task Type"),
@@ -101,11 +114,10 @@ class _CreateTaskState extends State<CreateTask> {
                             taskTypes, "Select Group", onGroupChanged),
                         // Priority Selector
                         SizedBox(height: screenSize.height * 0.02),
-                        BuildLabelText.buildLabelText("Add Assignee"),
-                        SizedBox(height: screenSize.height * 0.02),
+
                         // Group Dropdown
-                        BuildDropdown.buildDropdown(
-                            assignees, "Select Assignee", onGroupChanged),
+
+                        BuildLabelText.buildLabelText("Priority"),
                         SizedBox(height: screenSize.height * 0.02),
                         Container(
                           constraints: const BoxConstraints(
@@ -131,28 +143,73 @@ class _CreateTaskState extends State<CreateTask> {
                           ),
                         ),
                         SizedBox(height: screenSize.height * 0.02),
+                        BuildLabelText.buildLabelText("Add Assignee"),
+                        SizedBox(height: screenSize.height * 0.02),
+                        BuildDropdown.buildDropdown(
+                            assignees, "Select Assignee", onGroupChanged),
 
+                        SizedBox(height: screenSize.height * 0.02),
+                        BuildLabelText.buildLabelText("Target Date"),
+                        SizedBox(height: screenSize.height * 0.02),
                         CalendarTextField(onDateSelected: onDateSelected),
                         SizedBox(height: screenSize.height * 0.02),
-
+                        BuildLabelText.buildLabelText("Description"),
+                        SizedBox(height: screenSize.height * 0.02),
                         DescriptionTextArea.buildDescriptionTextArea(
                             descriptionController),
                         SizedBox(height: screenSize.height * 0.02),
                         // Add Documents Button
-                        TextButton(
-                          onPressed: () {
-                            // Handle Add Documents
-                          },
-                          child: const Text('Attach'),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "Add Documents",
+                              style: TextStyle(
+                                color: AppConstants.lightGrey,
+                              ),
+                            ),
+                            GestureDetector(
+                              onTap: _openFileExplorer,
+                              child: Text(
+                                "+Attach",
+                                style: TextStyle(
+                                  color: AppConstants.boldBlue,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                         SizedBox(height: screenSize.height * 0.02),
 
                         // Submit Button
-                        ElevatedButton(
-                          onPressed: () {
-                            // Handle form submission
-                          },
-                          child: const Text('Submit'),
+                        SizedBox(
+                          width: screenSize.width * 0.60,
+                          height: screenSize.height * 0.06,
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              // Set the background color of the button
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15.0),
+                              ),
+                              backgroundColor: AppConstants.boldBlue,
+                            ),
+                            onPressed: () {
+
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Dashboard()),
+                              );
+                            },
+                            child: Text(
+                              "Submit",
+                              style: TextStyle(
+                                fontSize: 18,
+                              ),
+                            ),
+                          ),
                         ),
                       ],
                     )))),
@@ -162,15 +219,14 @@ class _CreateTaskState extends State<CreateTask> {
     return Scaffold(
         body: BackgroundStack(
             child: SingleChildScrollView(
-      child: isLargerScreen
-          ? Container(
-
-              child:scrollContent,
-            )
-          : Container(
-
-              child: scrollContent,
-            ),
-    )));
+                child: GestureDetector(
+      onTap: () {
+        // Unfocus the current focus when tapped outside the TextFormField
+        FocusScope.of(context).unfocus();
+      },
+      child: Container(
+        child: scrollContent,
+      ),
+    ))));
   }
 }

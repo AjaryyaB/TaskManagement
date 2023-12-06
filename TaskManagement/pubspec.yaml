@@ -36,6 +36,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   http: ^1.1.0
+  google_fonts: ^6.1.0
 
 dev_dependencies:
   flutter_test:
@@ -80,6 +81,7 @@ flutter:
      - assets/images/passwordicon.png
      - assets/images/passwordicon@2x.png
      - assets/images/passwordicon@3x.png
+     - assets/images/Iconly-Light-Outline-Calendar.png
 
 
   # To add assets to your application, add an assets section, like this:

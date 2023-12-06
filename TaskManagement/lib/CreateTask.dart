@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:taskmanagement/constants/AppConstants.dart';
 import 'package:taskmanagement/constants/BackgroundImage.dart';
+import 'package:taskmanagement/constants/BuildCalenderTextField.dart';
+import 'package:taskmanagement/constants/BuildDescriptionTextBox.dart';
+import 'package:taskmanagement/constants/BuildDropdown.dart';
+import 'package:taskmanagement/constants/BuildLabelText.dart';
+import 'package:taskmanagement/constants/BuildTextFormField.dart';
 
 class CreateTask extends StatefulWidget {
   const CreateTask({super.key});
@@ -10,171 +15,162 @@ class CreateTask extends StatefulWidget {
 }
 
 class _CreateTaskState extends State<CreateTask> {
-  String? selectedValue;
+  String? selectedTaskType;
+  String? selectedGroup;
+  List<String> taskTypes = ['Task Type 1', 'Task Type 2', 'Task Type 3'];
+
+  List<String> groups = ['Group 1', 'Group 2', 'Group 3'];
+  List<String> assignees = ['Assignee 1', 'Assignee 2', 'Assignee 3'];
+  TextEditingController taskTitleController = TextEditingController();
+  TextEditingController descriptionController = TextEditingController();
+
+  void onTaskTypeChanged(String? value) {
+    setState(() {
+      selectedTaskType = value;
+    });
+  }
+
+  void onGroupChanged(String? value) {
+    setState(() {
+      selectedGroup = value;
+    });
+  }
+
+  void onPriorityChanged(int? value) {
+    setState(() {
+      _selectedRadio = value as int;
+    });
+    print("_selectedRadio : ${radioLabels[_selectedRadio]}");
+  }
+
+  DateTime? _selectedDate;
+
+  void onDateSelected(DateTime? value) {
+    _selectedDate = value;
+    print("_selectedDate : $_selectedDate");
+  }
+
+  int _selectedRadio = 0;
+  List<String> radioLabels = ['High', 'Medium', 'Low'];
 
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
-    return Scaffold(
-      body: BackgroundStack(
-          child: SingleChildScrollView(
-        child: Column(
-          children: [
-            AppBar(
-              title: Text("Create Task"),
-              backgroundColor: Colors.transparent,
-              elevation: 0,
-            ),
-            Padding(
-                padding: const EdgeInsets.only(top: 36.0),
-                child: Container(
-                    width: screenSize.width,
-                    height: screenSize.height,
-                    decoration: BoxDecoration(
-                      color: AppConstants.cardbackground,
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(20.0),
-                        topRight: Radius.circular(20.0),
-                      ),
-                    ),
-                    child: Padding(
-                        padding: const EdgeInsets.all(18.0),
-                        child: Column(
-                          children: [
-                            DropdownButtonFormField<String>(
-                              decoration: InputDecoration(
-                                labelText: 'Task Type',
-                                border: OutlineInputBorder(),
-                              ),
-                              items: [
-                                'Task Type 1',
-                                'Task Type 2',
-                                'Task Type 3'
-                              ].map<DropdownMenuItem<String>>((String value) {
-                                return DropdownMenuItem<String>(
-                                  value: value,
-                                  child: Text(value),
-                                );
-                              }).toList(),
-                              onChanged: (String? newValue) {
-                                // Handle change
-                              },
-                            ),
-                            SizedBox(height: 16),
-
-                            // Task Title TextField
-                            TextFormField(
-                              decoration: InputDecoration(
-                                labelText: 'Task Title',
-                                border: OutlineInputBorder(),
-                              ),
-                              onChanged: (value) {
-                                // Handle change
-                              },
-                            ),
-                            SizedBox(height: 16),
-
-                            // Group Dropdown
-                            DropdownButtonFormField<String>(
-                              decoration: InputDecoration(
-                                labelText: 'Group',
-                                border: OutlineInputBorder(),
-                              ),
-                              items: [
-                                'Group 1',
-                                'Group 2',
-                                'Group 3'
-                              ].map<DropdownMenuItem<String>>((String value) {
-                                return DropdownMenuItem<String>(
-                                  value: value,
-                                  child: Text(value),
-                                );
-                              }).toList(),
-                              onChanged: (String? newValue) {
-                                // Handle change
-                              },
-                            ),
-                            SizedBox(height: 16),
-
-                            // Priority Selector
-                            Row(
-                              children: <Widget>[
-                                ChoiceChip(
-                                  label: Text('High'),
-                                  selected: false,
-                                  onSelected: (bool selected) {
-                                    // Handle High Priority Selection
-                                  },
-                                ),
-                                SizedBox(width: 8),
-                                ChoiceChip(
-                                  label: Text('Medium'),
-                                  selected: true,
-                                  onSelected: (bool selected) {
-                                    // Handle Medium Priority Selection
-                                  },
-                                ),
-                                SizedBox(width: 8),
-                                ChoiceChip(
-                                  label: Text('Low'),
-                                  selected: false,
-                                  onSelected: (bool selected) {
-                                    // Handle Low Priority Selection
-                                  },
-                                ),
-                              ],
-                            ),
-                            SizedBox(height: 16),
-
-                            // Target Date Picker
-                            TextFormField(
-                              decoration: InputDecoration(
-                                labelText: 'Target Date',
-                                border: OutlineInputBorder(),
-                                suffixIcon: Icon(Icons.calendar_today),
-                              ),
-                              onTap: () {
-                                // Prevent the keyboard from appearing
-                                FocusScope.of(context)
-                                    .requestFocus(new FocusNode());
-                                // Call Function to show DatePicker
-                              },
-                            ),
-                            SizedBox(height: 16),
-
-                            // Description TextField
-                            TextFormField(
-                              decoration: InputDecoration(
-                                labelText: 'Description',
-                                border: OutlineInputBorder(),
-                              ),
-                              onChanged: (value) {
-                                // Handle change
-                              },
-                            ),
-                            SizedBox(height: 16),
-
-                            // Add Documents Button
-                            TextButton(
-                              onPressed: () {
-                                // Handle Add Documents
-                              },
-                              child: Text('Attach'),
-                            ),
-                            SizedBox(height: 16),
-
-                            // Submit Button
-                            ElevatedButton(
-                              onPressed: () {
-                                // Handle form submission
-                              },
-                              child: Text('Submit'),
-                            ),
-                          ],
-                        )))),
-          ],
+    final scrollContent = Column(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        AppBar(
+          title: const Text("Create Task"),
+          backgroundColor: Colors.transparent,
+          elevation: 0,
         ),
-      )),
+        Padding(
+            padding: const EdgeInsets.only(top: 36.0),
+            child: Container(
+                decoration: const BoxDecoration(
+                  color: AppConstants.cardbackground,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(20.0),
+                    topRight: Radius.circular(20.0),
+                  ),
+                ),
+                child: Padding(
+                    padding: const EdgeInsets.all(18.0),
+                    child: Column(
+                      children: [
+                        BuildLabelText.buildLabelText("Task Type"),
+
+                        SizedBox(height: screenSize.height * 0.02),
+                        BuildDropdown.buildDropdown(
+                            taskTypes, "Select Task Type", onTaskTypeChanged),
+                        SizedBox(height: screenSize.height * 0.02),
+                        BuildLabelText.buildLabelText("Task Title"),
+                        SizedBox(height: screenSize.height * 0.02),
+
+                        BuildTextFormField.buildTextFormField(
+                            'Enter Task Title',
+                            const SizedBox(),
+                            taskTitleController),
+                        // Task Title TextField
+
+                        SizedBox(height: screenSize.height * 0.02),
+                        BuildLabelText.buildLabelText("Group"),
+                        SizedBox(height: screenSize.height * 0.02),
+                        // Group Dropdown
+                        BuildDropdown.buildDropdown(
+                            taskTypes, "Select Group", onGroupChanged),
+                        // Priority Selector
+                        SizedBox(height: screenSize.height * 0.02),
+                        BuildLabelText.buildLabelText("Add Assignee"),
+                        SizedBox(height: screenSize.height * 0.02),
+                        // Group Dropdown
+                        BuildDropdown.buildDropdown(
+                            assignees, "Select Assignee", onGroupChanged),
+                        SizedBox(height: screenSize.height * 0.02),
+                        Container(
+                          constraints: const BoxConstraints(
+                              maxWidth: 380, maxHeight: 30),
+                          child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: radioLabels.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return Row(
+                                children: <Widget>[
+                                  Radio(
+                                    value: index,
+                                    groupValue: _selectedRadio,
+                                    onChanged: onPriorityChanged,
+                                    activeColor: Colors
+                                        .red, // Changes the selected dot color to red
+                                  ),
+                                  Text(radioLabels[index]),
+                                  SizedBox(width: 8),
+                                ],
+                              );
+                            },
+                          ),
+                        ),
+                        SizedBox(height: screenSize.height * 0.02),
+
+                        CalendarTextField(onDateSelected: onDateSelected),
+                        SizedBox(height: screenSize.height * 0.02),
+
+                        DescriptionTextArea.buildDescriptionTextArea(
+                            descriptionController),
+                        SizedBox(height: screenSize.height * 0.02),
+                        // Add Documents Button
+                        TextButton(
+                          onPressed: () {
+                            // Handle Add Documents
+                          },
+                          child: const Text('Attach'),
+                        ),
+                        SizedBox(height: screenSize.height * 0.02),
+
+                        // Submit Button
+                        ElevatedButton(
+                          onPressed: () {
+                            // Handle form submission
+                          },
+                          child: const Text('Submit'),
+                        ),
+                      ],
+                    )))),
+      ],
     );
+    bool isLargerScreen = screenSize.height > 600;
+    return Scaffold(
+        body: BackgroundStack(
+            child: SingleChildScrollView(
+      child: isLargerScreen
+          ? Container(
+
+              child:scrollContent,
+            )
+          : Container(
+
+              child: scrollContent,
+            ),
+    )));
   }
 }

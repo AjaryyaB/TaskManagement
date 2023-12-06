@@ -70,6 +70,8 @@ class Login extends StatelessWidget {
   }
 
   final _formKey = GlobalKey<FormState>();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
@@ -83,13 +85,10 @@ class Login extends StatelessWidget {
               children: [Image.asset("assets/images/logo.png")],
             ),
             SizedBox(
-              height: screenSize.height * 0.010,
+              height: screenSize.height * 0.050,
             ),
             Container(
-              constraints: BoxConstraints(maxWidth: 320),
-              // width: screenSize.width * 0.8, // 80% of screen width
-              // height: screenSize.height * 0.70, // 60% of screen height
-
+              constraints: BoxConstraints(maxWidth: 320),             
               child: Card(
                 color: AppConstants.cardbackground,
                 shape: RoundedRectangleBorder(
@@ -114,7 +113,7 @@ class Login extends StatelessWidget {
                       height: screenSize.height * 0.015,
                     ),
 
-                    BuildTextFormField.buildTextFormField("Enter Username", AppConstants.personIcon),
+                    BuildTextFormField.buildTextFormField("Enter Username", AppConstants.personIcon,emailController),
                     SizedBox(
                       height: screenSize.height * 0.015,
                     ),
@@ -123,7 +122,7 @@ class Login extends StatelessWidget {
                       height: screenSize.height * 0.015,
                     ),
 
-                    BuildTextFormField.buildTextFormField( "Enter Password", AppConstants.passwordIcon),
+                    BuildTextFormField.buildTextFormField( "Enter Password", AppConstants.passwordIcon,passwordController),
                   ],
                 ),
               ),
@@ -134,21 +133,7 @@ class Login extends StatelessWidget {
               SizedBox(
                 height: screenSize.height * 0.015,
               ),
-              buildHeading("Or"),
-              SizedBox(
-                height: screenSize.height * 0.015,
-              ),
-              Center(
-                child: Text(
-                  'Sign in by MPIN',
-                  style: TextStyle(
-                    color: AppConstants.underlineColor,
-                    decoration: TextDecoration.underline,
-                    decorationColor: AppConstants.underlineColor,
-                    decorationThickness: 2, // Set thickness as needed
-                  ),
-                ),
-              ),
+
               SizedBox(
                 height: screenSize.height * 0.050,
               ),
@@ -164,6 +149,8 @@ class Login extends StatelessWidget {
                     backgroundColor: AppConstants.boldBlue,
                   ),
                   onPressed: () {
+                    print("Email : ${emailController.text}");
+                    print("Email : ${emailController.text}");
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -178,13 +165,7 @@ class Login extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(
-                height: screenSize.height * 0.015,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [Text("Don't have account ?"), Text("Sign Up")],
-              )
+
             ],
           ),
                 ),

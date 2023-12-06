@@ -17,44 +17,16 @@ class _DashboardState extends State<Dashboard> {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
       key: _scaffoldKey,
-      body: Stack(
-        children: [
-          BackgroundStack(
-            child: Column(
-              children: [
-                SizedBox(
-                    height:120),
-                Padding(
-                  padding: const EdgeInsets.only(top:36.0),
-                  child: Container(
-                   // width: screenWidth*1.5,
-                    height: screenHeight *0.77,
-                    decoration: BoxDecoration(
-                      color: AppConstants.cardbackground,
-                      borderRadius: BorderRadius.only(topLeft: Radius.circular(20.0),
-                        topRight: Radius.circular(20.0),),
-
-                    ),
-                      child:
-                         MyApp(),
-
-                      ),
-                  ),
-
-              ],
-            ),
-          ),
-          Positioned(
-            top: 0,
-            left: 0,
-            right: 0,
-            child: AppBar(
-              toolbarHeight: screenHeight*0.10,
+      body: BackgroundStack(
+        child: Column(
+          children: [
+            SizedBox(height: screenHeight * 0.02), // Adjusted spacing
+            AppBar(
               title: Row(
                 children: [
                   CircleAvatar(
@@ -63,11 +35,15 @@ class _DashboardState extends State<Dashboard> {
                   ),
                   SizedBox(width: 16),
                   Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text('Dashboard'),
-                      Text('Project Manager',style: TextStyle(
-                        fontSize: 16,
-                      ),),
+                      Text(
+                        'Project Manager',
+                        style: TextStyle(
+                          fontSize: 16,
+                        ),
+                      ),
                     ],
                   ),
                   Spacer(),
@@ -83,12 +59,29 @@ class _DashboardState extends State<Dashboard> {
               ),
               backgroundColor: Colors.transparent,
               elevation: 0,
+              toolbarHeight: screenHeight * 0.10,
             ),
-          ),
-        ],
+            Expanded(
+              child: Container(
+                height: screenHeight * 0.77,
+                width: screenWidth,
+                decoration: BoxDecoration(
+                  color: AppConstants.cardbackground,
+    //              color: Colors.black,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(20.0),
+                    topRight: Radius.circular(20.0),
+                  ),
+                ),
+                child:
+                    // SizedBox(height: 30,),
+                MyApp(),
+              ),
+            ),
+          ],
+        ),
       ),
       drawer: Drawer(
-        // Your side menu content goes here
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
@@ -124,14 +117,12 @@ class _DashboardState extends State<Dashboard> {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(
-                builder: (context) => CreateTask()),
+            MaterialPageRoute(builder: (context) => CreateTask()),
           );
         },
         child: Icon(Icons.add),
       ),
       bottomNavigationBar: BottomAppBar(
-       // height: screenHeight*0.10,
         color: Colors.white,
         shape: CircularNotchedRectangle(),
         child: Row(
@@ -146,14 +137,14 @@ class _DashboardState extends State<Dashboard> {
             IconButton(
               icon: Icon(Icons.bar_chart),
               onPressed: () {
-                // Handle home button tap
+                // Handle statistics button tap
               },
             ),
-            SizedBox(width: 20,),
+            SizedBox(width: 20),
             IconButton(
               icon: Icon(Icons.calendar_month),
               onPressed: () {
-                // Handle home button tap
+                // Handle calendar button tap
               },
             ),
             IconButton(

@@ -31,17 +31,17 @@ class _DashboardState extends State<Dashboard> {
                 children: [
                   CircleAvatar(
                     radius: 20,
-                    // backgroundImage: AssetImage('assets/your_photo.jpg'),
+                     backgroundImage: AssetImage('assets/images/profile@2x.png'),
                   ),
                   SizedBox(width: 16),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Dashboard'),
+                      Text('Amelia Wirtz'),
                       Text(
                         'Project Manager',
                         style: TextStyle(
-                          fontSize: 16,
+                          fontSize: 13,
                         ),
                       ),
                     ],

@@ -189,52 +189,76 @@ class EntityCard extends StatelessWidget {
           width: 240,
           height: 120,
           decoration: BoxDecoration(
-            border: Border.all(
-              color: isSelected ? AppConstants.boldBlue : Colors.transparent,
-              width: 2.0,
-            ),
-              borderRadius: BorderRadius.all(Radius.circular(20))
-          ),
-          child: ListTile(
-            title: Text(
-              entity.entityName,
-              style: TextStyle(
-                color: isSelected ? AppConstants.boldBlue : Colors.black,
-                fontWeight: FontWeight.bold,
-                fontSize: 24
+              border: Border.all(
+                color: isSelected ? AppConstants.boldBlue : Colors.transparent,
+                width: 5.0,
               ),
-            ),
+              borderRadius: BorderRadius.all(Radius.circular(20))),
+          child: ListTile(
+            // title: Text(
+            //   entity.entityName,
+            //   style: TextStyle(
+            //       color: isSelected ? AppConstants.boldBlue : Colors.black,
+            //       fontWeight: FontWeight.bold,
+            //       fontSize: 24),
+            // ),
             subtitle: Column(
               children: [
-                SizedBox(height: 10,),
+                Row(
+                  children: [
+                    Image.asset("assets/images/Group4624@2x.png",),
+                    SizedBox(width: 10,),
+                    Text(entity.entityName,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 24
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 10,
+                ),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Column(
-                      children: [Text('Open'), Text('${entity.open}',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 23,
-                            color:Colors.green
-                      ))],
+                      children: [
+                        Text('Open'),
+                        Text('${entity.open}',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 23,
+                                color: Colors.green))
+                      ],
                     ),
-                    SizedBox(width: 20,),
-                    Column(
-                      children: [Text('InProgress'), Text('${entity.inProgress}',
-                        style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 23,
-                        color:Colors.deepOrange
-                      ),)],
+                    SizedBox(
+                      width: 18,
                     ),
-                    SizedBox(width: 20,),
                     Column(
-                      children: [Text('Overdue: '), Text('${entity.overdue}',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 23,
-                            color:Colors.red
-                      ))],
+                      children: [
+                        Text('InProgress'),
+                        Text(
+                          '${entity.inProgress}',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 23,
+                              color: Colors.deepOrange),
+                        )
+                      ],
+                    ),
+                    SizedBox(
+                      width: 18,
+                    ),
+                    Column(
+                      children: [
+                        Text('Overdue'),
+                        Text('${entity.overdue}',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 23,
+                                color: Colors.red))
+                      ],
                     ),
                   ],
                 ),
@@ -333,7 +357,9 @@ class _MyAppState extends State<MyApp> {
     return Container(
       child: Column(
         children: [
-          SizedBox(height: 10,),
+          SizedBox(
+            height: 10,
+          ),
           entities.isEmpty
               ? Center(child: CircularProgressIndicator())
               : SingleChildScrollView(

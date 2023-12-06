@@ -10,6 +10,7 @@ class BuildTextFormField {
         controller: controller,
         decoration: InputDecoration(
           labelText: labelText,
+          floatingLabelBehavior: FloatingLabelBehavior.auto,
           labelStyle: TextStyle(color: AppConstants.hintText),
           filled: true,
           fillColor: AppConstants.inputBackground,

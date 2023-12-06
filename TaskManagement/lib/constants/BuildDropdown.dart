@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:taskmanagement/constants/AppConstants.dart';
 
 class BuildDropdown {
-  static Widget buildDropdown(List<String> items, String? labelText,
+  static Widget buildDropdown(List<String> items, String? hintText,
       void Function(String?)? onChanged) {
     return Container(
       constraints: const BoxConstraints(maxWidth: 390, maxHeight: 60),
@@ -11,7 +11,8 @@ class BuildDropdown {
           alignLabelWithHint: true,
           filled: true,
           fillColor: AppConstants.inputBackground,
-          labelText: labelText,
+        hintText: hintText,
+          floatingLabelBehavior: FloatingLabelBehavior.auto,
           labelStyle: TextStyle(color: AppConstants.hintText),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(18.0),

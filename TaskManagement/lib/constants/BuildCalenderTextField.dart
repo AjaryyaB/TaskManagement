@@ -39,7 +39,8 @@ class _CalendarTextFieldState extends State<CalendarTextField> {
             : '',
       ),
       decoration: InputDecoration(
-        labelText: 'Target Date',
+       hintText: 'DD/MM/YYYY',
+        floatingLabelBehavior: FloatingLabelBehavior.auto,
         labelStyle: TextStyle(color: AppConstants.hintText),
         filled: true,
         fillColor: AppConstants.inputBackground,

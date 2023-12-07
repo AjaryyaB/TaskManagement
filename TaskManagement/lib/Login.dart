@@ -154,7 +154,7 @@ class Login extends StatelessWidget {
                           onPressed: () {
                             print("Email : ${emailController.text}");
                             print("Email : ${emailController.text}");
-                            Toastify.successToast(context, "Login Success");
+                            //Toastify.successToast(context, "Login Success");
                             Navigator.push(
                               context,
                               MaterialPageRoute(

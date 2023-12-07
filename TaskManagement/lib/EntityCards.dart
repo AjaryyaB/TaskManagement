@@ -138,6 +138,8 @@ import 'dart:convert';
 import 'package:taskmanagement/constants/AppConstants.dart';
 import 'package:taskmanagement/constants/AppConstants.dart';
 import 'package:taskmanagement/constants/AppConstants.dart';
+import 'package:taskmanagement/constants/Toast.dart';
+import 'package:toastification/toastification.dart';
 
 class Entity {
   int entityId;
@@ -307,6 +309,7 @@ class _MyAppState extends State<MyApp> {
         setState(() {
           entities = entityList;
         });
+        Toastify.successToast(context, "fetch data api loaded");
       } else {
         throw Exception(
             'Failed to load data. Status Code: ${response.statusCode}, Error: ${response.body}');

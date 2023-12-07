@@ -61,6 +61,7 @@ class _DashboardState extends State<Dashboard> {
               elevation: 0,
               toolbarHeight: screenHeight * 0.10,
             ),
+            SizedBox(height: 30,),
             Expanded(
               child: Container(
                 height: screenHeight * 0.77,
@@ -75,7 +76,14 @@ class _DashboardState extends State<Dashboard> {
                 ),
                 child:
                     // SizedBox(height: 30,),
-                MyApp(),
+                Navigator(
+                 // key: keyOne,
+                  onGenerateRoute: (routeSettings) {
+                    return MaterialPageRoute(
+                      builder: (context) => MyApp(),
+                    );
+                  },
+                ),
               ),
             ),
           ],

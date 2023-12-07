@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class AppConstants {
 
@@ -22,7 +23,7 @@ class AppConstants {
 
   //Icons
   static  Image personIcon= Image.asset(
-  'assets/images/Iconly-Light-Outline-Profile.png',height: 24, width: 24,);
+  'assets/images/mail.png',height: 24, width: 24,);
   static  Image passwordIcon= Image.asset(
     'assets/images/passwordicon.png',height: 24, width: 24,);
 

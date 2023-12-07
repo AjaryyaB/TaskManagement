@@ -138,6 +138,7 @@ import 'dart:convert';
 import 'package:taskmanagement/constants/AppConstants.dart';
 import 'package:taskmanagement/constants/AppConstants.dart';
 import 'package:taskmanagement/constants/AppConstants.dart';
+import 'package:taskmanagement/constants/Toast.dart';
 
 class Entity {
   int entityId;
@@ -264,6 +265,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   Future<void> fetchData() async {
+    Toastify.successToast(context, "Login Success");
     try {
       final response = await http.get(Uri.parse(
           'http://192.168.5.214:8080/taskManagement/getAllEntityDetails'));

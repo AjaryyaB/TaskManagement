@@ -6,7 +6,7 @@ class Toastify{
     
     toastification.show(context: context, title: msg, autoCloseDuration: const Duration(seconds: 5),
      closeOnClick: true,
-    backgroundColor: Colors.green,
+    //backgroundColor: Colors.green,
         type: ToastificationType.success
     );
   }

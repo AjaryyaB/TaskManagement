@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 import 'dart:convert';
 
 import 'package:taskmanagement/constants/AppConstants.dart';
-import 'package:taskmanagement/constants/AppConstants.dart';
-import 'package:taskmanagement/constants/AppConstants.dart';
 import 'package:taskmanagement/constants/Toast.dart';
-import 'package:toastification/toastification.dart';
 
 class Entity {
   int entityId;
@@ -38,6 +36,10 @@ class Task {
     required this.priority,
     required this.dueDate,
   });
+
+  String get formattedDueDate {
+    return DateFormat('yyyy-MM-dd').format(dueDate);
+  }
 }
 
 class EntityCard extends StatelessWidget {
@@ -52,91 +54,87 @@ class EntityCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
-      child: Container(
-        child: Card(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(20)), // Adjust the value to your desired border radius
-          ),
-          margin: EdgeInsets.all(10),
-          child: Container(
-            width: 240,
-            height: 120,
-            decoration: BoxDecoration(
-                border: Border.all(
-                  color: isSelected ? AppConstants.boldBlue : Colors.transparent,
-                  width: 5.0,
+      child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(20)),
+        ),
+        margin: EdgeInsets.all(10),
+        child: Container(
+          width: 240,
+          height: 120,
+          decoration: BoxDecoration(
+              border: Border.all(
+                color: isSelected ? AppConstants.boldBlue : Colors.transparent,
+                width: 5.0,
+              ),
+              borderRadius: BorderRadius.all(Radius.circular(20))),
+          child: ListTile(
+            subtitle: Column(
+              children: [
+                Row(
+                  children: [
+                    Image.asset(
+                      "assets/images/Group4624@2x.png",
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Text(
+                      entity.entityName,
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+                    ),
+                  ],
                 ),
-                borderRadius: BorderRadius.all(Radius.circular(20))),
-            child: ListTile(
-              // title: Text(
-              //   entity.entityName,
-              //   style: TextStyle(
-              //       color: isSelected ? AppConstants.boldBlue : Colors.black,
-              //       fontWeight: FontWeight.bold,
-              //       fontSize: 24),
-              // ),
-              subtitle: Column(
-                children: [
-                  Row(
-                    children: [
-                      Image.asset("assets/images/Group4624@2x.png",),
-                      SizedBox(width: 10,),
-                      Text(entity.entityName,
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 24
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Column(
-                        children: [
-                          Text('Open'),
-                          Text('${entity.open}',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 23,
-                                  color: Colors.green))
-                        ],
-                      ),
-                      SizedBox(
-                        width: 18,
-                      ),
-                      Column(
-                        children: [
-                          Text('InProgress'),
-                          Text(
-                            '${entity.inProgress}',
+                SizedBox(
+                  height: 22,
+                ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Column(
+                      children: [
+                        Text('Open'),
+                        Text(
+                          '${entity.open}',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 23,
+                              color: Colors.green),
+                        )
+                      ],
+                    ),
+                    SizedBox(
+                      width: 18,
+                    ),
+                    Column(
+                      children: [
+                        Text('InProgress'),
+                        Text(
+                          '${entity.inProgress}',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 23,
+                              color: Colors.deepOrange),
+                        )
+                      ],
+                    ),
+                    SizedBox(
+                      width: 18,
+                    ),
+                    Column(
+                      children: [
+                        Text('Overdue'),
+                        Text('${entity.overdue}',
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 23,
-                                color: Colors.deepOrange),
-                          )
-                        ],
-                      ),
-                      SizedBox(
-                        width: 18,
-                      ),
-                      Column(
-                        children: [
-                          Text('Overdue'),
-                          Text('${entity.overdue}',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 23,
-                                  color: Colors.red))
-                        ],
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+                                color: Colors.red))
+                      ],
+                    ),
+                  ],
+                ),
+              ],
             ),
           ),
         ),
@@ -153,7 +151,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   List<Entity> entities = [];
   List<Task> tasks = [];
-  Entity? selectedEntity; // Keep track of the selected entity
+  Entity? selectedEntity;
 
   @override
   void initState() {
@@ -170,18 +168,19 @@ class _MyAppState extends State<MyApp> {
         List<dynamic> data = jsonDecode(response.body);
         List<Entity> entityList = data
             .map((item) => Entity(
-          entityId: item['entityId'],
-          entityName: item['entityName'],
-          open: item['open'],
-          inProgress: item['inprogress'],
-          overdue: item['overdue'],
-        ))
+                  entityId: item['entityId'],
+                  entityName: item['entityName'],
+                  open: item['open'],
+                  inProgress: item['inprogress'],
+                  overdue: item['overdue'],
+                ))
             .toList();
+       // Toastify.successToast(context, "Login Success from entity cards");
 
         setState(() {
           entities = entityList;
         });
-        Toastify.successToast(context, "fetch data api loaded");
+        Toastify.successToast(context, "Login Success");
       } else {
         throw Exception(
             'Failed to load data. Status Code: ${response.statusCode}, Error: ${response.body}');
@@ -200,12 +199,13 @@ class _MyAppState extends State<MyApp> {
         List<dynamic> data = jsonDecode(response.body);
         List<Task> taskList = data
             .map((item) => Task(
-          taskId: item['taskId'],
-          assignee: item['assigne'],
-          designation: item['designation'],
-          priority: item['priority'],
-          dueDate: DateTime.parse(item['dueDate']),
-        ))
+                  taskId: item['taskId'],
+                  assignee: item['assigne'],
+                  designation: item['designation'],
+                  priority: item['priority'],
+                  dueDate: DateTime.parse(item['dueDate']),
+                  //dueDate: item['dueDate'],
+                ))
             .toList();
 
         setState(() {
@@ -229,53 +229,147 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height;
     return Container(
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(
-            height: 10,
-          ),
-          Text(""),
+          SizedBox(height: screenHeight * 0.015),
           entities.isEmpty
               ? Center(child: CircularProgressIndicator())
-              : SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              children: entities
-                  .map((entity) => EntityCard(
-                entity: entity,
-                onTap: () {
-                  onCardTap(entity);
-                },
-                isSelected: entity == selectedEntity,
-              ))
-                  .toList(),
-            ),
-          ),
-          tasks.isEmpty
-              ? Center(child: Text('No tasks for selected entity'))
-              : ListView.builder(
-            shrinkWrap: true,
-            itemCount: tasks.length,
-            itemBuilder: (context, index) {
-              return Card(
-                margin: EdgeInsets.all(10),
-                child: ListTile(
-                  title: Text('Task ID: ${tasks[index].taskId}'),
-                  subtitle: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('Assignee: ${tasks[index].assignee}'),
-                      Text('Designation: ${tasks[index].designation}'),
-                      Text('Priority: ${tasks[index].priority}'),
-                      Text(
-                          'Due Date: ${tasks[index].dueDate.toString()}'),
-                    ],
+              : Container(
+                  height: 150,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: entities.length,
+                    itemBuilder: (context, index) => EntityCard(
+                      entity: entities[index],
+                      onTap: () {
+                        onCardTap(entities[index]);
+                      },
+                      isSelected: entities[index] == selectedEntity,
+                    ),
                   ),
                 ),
-              );
-            },
-          ),
+          SizedBox(height: screenHeight * 0.015),
+          selectedEntity != null
+              ? Padding(
+                  padding: const EdgeInsets.only(left: 18.0),
+                  child: Text(
+                    "${selectedEntity!.entityName}",
+                    textAlign: TextAlign.left,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                    ),
+                  ),
+                )
+              : Container(),
+          SizedBox(height: screenHeight * 0.01),
+          tasks.isEmpty
+              ? Center(child: Text('No tasks for selected entity'))
+              : Expanded(
+                  child: ListView.builder(
+                    itemCount: tasks.length,
+                    itemBuilder: (context, index) {
+                      return Container(
+                        height: screenHeight * 0.13,
+                        child: Card(
+                          margin: EdgeInsets.all(10),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(30)),
+                          ),
+                          child: ListTile(
+                            // title: Text('Task ID: ${tasks[index].taskId}'),
+                            subtitle: Row(
+                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  children: [
+                                    Image.asset(
+                                        "assets/images/taskprofile@2x.png"),
+
+                                    Padding(
+                                      padding: const EdgeInsets.only(top:14.0),
+                                      child: Column(
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        children: [
+                                          Row(
+                                            children: [
+                                              //SizedBox(height: 11,),
+                                              Text(
+                                                '${tasks[index].assignee}',
+                                                style: TextStyle(
+                                                  fontSize: 14,
+                                                  color: AppConstants.boldBlue,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                              Text(
+                                                '${tasks[index].designation}',
+                                                style: TextStyle(
+                                                  fontSize: 10,
+                                                  color:
+                                                  //  AppConstants.designationcolor,
+                                                  Colors.lightBlue,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          Text(
+                                            '${tasks[index].formattedDueDate}',
+                                            style: TextStyle(
+                                              fontSize: 13,
+                                              color: AppConstants.boldBlue,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(top:12.0),
+                                  child: Column(
+                                    children: [
+                                      // Conditionally display icons based on priority
+
+                                      Expanded(
+                                        child: Row(
+                                          children: [
+                                            if (tasks[index].priority == 'Low')
+                                              Image.asset(
+                                                  "assets/images/greenflag@2x.png")
+                                            else if (tasks[index].priority ==
+                                                'Medium')
+                                              Image.asset(
+                                                  "assets/images/orangeflag@2x.png")
+                                            else
+                                              Image.asset(
+                                                  "assets/images/redflag@2x.png")
+                                          ],
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: Text(
+                                          '${tasks[index].priority}',
+                                          style: TextStyle(fontSize: 10),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                                // Add your other task information here
+                              ],
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
         ],
       ),
     );

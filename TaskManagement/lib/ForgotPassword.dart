@@ -48,109 +48,108 @@ class _ForgotPasswordState extends State<ForgotPassword> {
         backgroundColor: Colors.transparent,
         body: BackgroundStack(
           child: ListView(
-            children: [GestureDetector(
-              onTap: () {
-                // Unfocus the current focus when tapped outside the TextFormField
-                FocusScope.of(context).unfocus();
-              },
-              child: Column(
-
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-
-                      children: [
-                        Container(
-                          margin: EdgeInsets.only(top:60 ),
-                          child: Image.asset(
-                            "assets/images/logo@2x.png",
-                            height: 160,
-                            width: 280,
-                          ),
-                        )
-                      ],
-                    ),
-                    SizedBox(
-                      height: screenSize.height * 0.050,
-                    ),
-                    Container(
-                      constraints: BoxConstraints(maxWidth: 320),
-                      child: Card(
-                        color: AppConstants.cardbackground,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(
-                              20.0), // Adjust the value as needed
+            children: [
+              GestureDetector(
+                onTap: () {
+                  // Unfocus the current focus when tapped outside the TextFormField
+                  FocusScope.of(context).unfocus();
+                },
+                child: Column(children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        margin: EdgeInsets.only(top: 60),
+                        child: Image.asset(
+                          "assets/images/logo@2x.png",
+                          height: 160,
+                          width: 280,
                         ),
-                        elevation: 5, // Add elevation for a shadow effect
-                        child: Padding(
-                          padding: EdgeInsets.all(18.0),
-                          child: Column(
-                            children: [
-                              buildHeading("Forgot Password"),
-                              SizedBox(
-                                height: screenSize.height * 0.015,
+                      )
+                    ],
+                  ),
+                  SizedBox(
+                    height: screenSize.height * 0.050,
+                  ),
+                  Container(
+                    constraints: BoxConstraints(maxWidth: 320),
+                    child: Card(
+                      color: AppConstants.cardbackground,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(
+                            20.0), // Adjust the value as needed
+                      ),
+                      elevation: 5, // Add elevation for a shadow effect
+                      child: Padding(
+                        padding: EdgeInsets.all(18.0),
+                        child: Column(
+                          children: [
+                            buildHeading("Forgot Password"),
+                            SizedBox(
+                              height: screenSize.height * 0.015,
+                            ),
+                            Container(
+                              child: Text(
+                                  "Enter your email for the verification process, We will send 4 digits code to your email"),
+                            ),
+                            SizedBox(
+                              height: screenSize.height * 0.015,
+                            ),
+                            Form(
+                              key: _formKey,
+                              child: Column(
+                                children: [
+                                  buildInputLabel("Email ID"),
+                                  SizedBox(
+                                    height: screenSize.height * 0.015,
+                                  ),
+                                  BuildTextFormField.buildTextFormField(
+                                      "Enter Email",
+                                      AppConstants.personIcon,
+                                      emailController),
+                                  SizedBox(
+                                    height: screenSize.height * 0.050,
+                                  ),
+                                ],
                               ),
-                              Container(
+                            ),
+                            SizedBox(
+                              width: screenSize.width * 0.60,
+                              height: screenSize.height * 0.06,
+                              child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  // Set the background color of the button
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(15.0),
+                                  ),
+                                  backgroundColor: AppConstants.boldBlue,
+                                ),
+                                onPressed: () {
+                                  print("Email : ${emailController.text}");
+                                  print("Email : ${emailController.text}");
+                                  // Toastify.successToast(context, "Login Success");
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => EnterOtp()),
+                                  );
+                                },
                                 child: Text(
-                                    "Enter your email for the verification process, We will send 4 digits code to your email"),
-                              ),
-                              SizedBox(
-                                height: screenSize.height * 0.015,
-                              ),
-                              Form(
-                                key: _formKey,
-                                child: Column(
-                                  children: [
-                                    buildInputLabel("Email ID"),
-                                    SizedBox(
-                                      height: screenSize.height * 0.015,
-                                    ),
-                                    BuildTextFormField.buildTextFormField(
-                                        "Enter Email",
-                                        AppConstants.personIcon,
-                                        emailController),
-                                    SizedBox(
-                                      height: screenSize.height * 0.050,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              SizedBox(
-                                width: screenSize.width * 0.60,
-                                height: screenSize.height * 0.06,
-                                child: ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                    // Set the background color of the button
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(15.0),
-                                    ),
-                                    backgroundColor: AppConstants.boldBlue,
-                                  ),
-                                  onPressed: () {
-                                    print("Email : ${emailController.text}");
-                                    print("Email : ${emailController.text}");
-                                    // Toastify.successToast(context, "Login Success");
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => EnterOtp()),
-                                    );
-                                  },
-                                  child: Text(
-                                    "Continue",
-                                    style: TextStyle(
-                                      fontSize: 18,
-                                    ),
+                                  "Continue",
+                                  style: TextStyle(
+                                    fontSize: 18,
                                   ),
                                 ),
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                       ),
                     ),
-                  ]),
-            )],
+                  ),
+                ]),
+              )
+            ],
           ),
         ));
   }

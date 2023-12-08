@@ -95,24 +95,78 @@ class _DashboardState extends State<Dashboard> {
           children: [
             DrawerHeader(
               decoration: BoxDecoration(
-                color: Colors.blue,
+                color: AppConstants.boldBlue,
               ),
-              child: Text(
-                'Side Menu',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 24,
-                ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  CircleAvatar(
+                    radius: 40,
+                    backgroundImage: AssetImage('assets/images/profile@2x.png'),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top:40.0),
+                    child: Column(
+                      children: [
+                        Text(
+                          'Amelia Wirtz',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 24,
+                          ),
+                        ),
+                        Text(
+                          'Project Director',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 12,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
             ),
             ListTile(
-              title: Text('Item 1'),
+              title:
+              Text('Dashboard',style: TextStyle(
+                color: AppConstants.boldBlue
+              ),),
               onTap: () {
                 // Handle item 1 tap
               },
             ),
             ListTile(
-              title: Text('Item 2'),
+              title:
+              Text('Inbox',style: TextStyle(
+                  color: AppConstants.boldBlue
+              ),),
+              onTap: () {
+                // Handle item 2 tap
+              },
+            ),
+            ListTile(
+              title:
+              Text('Tasks',style: TextStyle(
+                  color: AppConstants.boldBlue
+              ),),
+              onTap: () {
+                // Handle item 2 tap
+              },
+            ),
+            ListTile(
+              title: Text('Groups',style: TextStyle(
+                  color: AppConstants.boldBlue
+              ),),
+              onTap: () {
+                // Handle item 2 tap
+              },
+            ),
+            ListTile(
+              title: Text('Calender',style: TextStyle(
+                  color: AppConstants.boldBlue
+              ),),
               onTap: () {
                 // Handle item 2 tap
               },

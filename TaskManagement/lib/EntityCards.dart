@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 import 'dart:convert';
 
 import 'package:taskmanagement/constants/AppConstants.dart';
@@ -35,6 +36,10 @@ class Task {
     required this.priority,
     required this.dueDate,
   });
+
+  String get formattedDueDate {
+    return DateFormat('yyyy-MM-dd').format(dueDate);
+  }
 }
 
 class EntityCard extends StatelessWidget {
@@ -82,7 +87,7 @@ class EntityCard extends StatelessWidget {
                   ],
                 ),
                 SizedBox(
-                  height: 10,
+                  height: 22,
                 ),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -92,6 +97,21 @@ class EntityCard extends StatelessWidget {
                         Text('Open'),
                         Text(
                           '${entity.open}',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 23,
+                              color: Colors.green),
+                        )
+                      ],
+                    ),
+                    SizedBox(
+                      width: 18,
+                    ),
+                    Column(
+                      children: [
+                        Text('InProgress'),
+                        Text(
+                          '${entity.inProgress}',
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 23,
@@ -155,11 +175,12 @@ class _MyAppState extends State<MyApp> {
                   overdue: item['overdue'],
                 ))
             .toList();
-        Toastify.successToast(context, "Login Success from entity cards");
+       // Toastify.successToast(context, "Login Success from entity cards");
 
         setState(() {
           entities = entityList;
         });
+        Toastify.successToast(context, "Login Success");
       } else {
         throw Exception(
             'Failed to load data. Status Code: ${response.statusCode}, Error: ${response.body}');
@@ -260,47 +281,58 @@ class _MyAppState extends State<MyApp> {
                           ),
                           child: ListTile(
                             // title: Text('Task ID: ${tasks[index].taskId}'),
-                            subtitle: Expanded(
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Image.asset(
-                                      "assets/images/taskprofile@2x.png"),
+                            subtitle: Row(
+                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  children: [
+                                    Image.asset(
+                                        "assets/images/taskprofile@2x.png"),
 
-                                  Column(
-                                    children: [
-                                      Row(
+                                    Padding(
+                                      padding: const EdgeInsets.only(top:14.0),
+                                      child: Column(
+                                        mainAxisAlignment: MainAxisAlignment.start,
                                         children: [
-                                          Text(
-                                            '${tasks[index].assignee}',
-                                            style: TextStyle(
-                                              fontSize: 15,
-                                              color: AppConstants.boldBlue,
-                                              fontWeight: FontWeight.bold,
-                                            ),
+                                          Row(
+                                            children: [
+                                              //SizedBox(height: 11,),
+                                              Text(
+                                                '${tasks[index].assignee}',
+                                                style: TextStyle(
+                                                  fontSize: 14,
+                                                  color: AppConstants.boldBlue,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                              Text(
+                                                '${tasks[index].designation}',
+                                                style: TextStyle(
+                                                  fontSize: 10,
+                                                  color:
+                                                  //  AppConstants.designationcolor,
+                                                  Colors.lightBlue,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                            ],
                                           ),
                                           Text(
-                                            '${tasks[index].designation}',
+                                            '${tasks[index].formattedDueDate}',
                                             style: TextStyle(
-                                              fontSize: 9,
-                                              color:
-                                                  AppConstants.designationcolor,
+                                              fontSize: 13,
+                                              color: AppConstants.boldBlue,
                                               fontWeight: FontWeight.bold,
                                             ),
                                           ),
                                         ],
                                       ),
-                                      Text(
-                                        '${tasks[index].dueDate.toString()}',
-                                        style: TextStyle(
-                                          fontSize: 15,
-                                          color: AppConstants.boldBlue,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  Column(
+                                    ),
+                                  ],
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(top:12.0),
+                                  child: Column(
                                     children: [
                                       // Conditionally display icons based on priority
 
@@ -309,28 +341,28 @@ class _MyAppState extends State<MyApp> {
                                           children: [
                                             if (tasks[index].priority == 'Low')
                                               Image.asset(
-                                                  "assets/images/greenflag.png")
+                                                  "assets/images/greenflag@2x.png")
                                             else if (tasks[index].priority ==
                                                 'Medium')
                                               Image.asset(
-                                                  "assets/images/orangeflag.png")
+                                                  "assets/images/orangeflag@2x.png")
                                             else
                                               Image.asset(
-                                                  "assets/images/redflag.png")
+                                                  "assets/images/redflag@2x.png")
                                           ],
                                         ),
                                       ),
                                       Expanded(
                                         child: Text(
                                           '${tasks[index].priority}',
-                                          style: TextStyle(fontSize: 8),
+                                          style: TextStyle(fontSize: 10),
                                         ),
                                       )
                                     ],
                                   ),
-                                  // Add your other task information here
-                                ],
-                              ),
+                                ),
+                                // Add your other task information here
+                              ],
                             ),
                           ),
                         ),

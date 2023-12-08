@@ -4,7 +4,7 @@ import 'package:toastification/toastification.dart';
 class Toastify{
   static void successToast(BuildContext context,String msg){
     
-    toastification.show(context: context, title: msg, autoCloseDuration: const Duration(seconds: 1),
+    toastification.show(context: context, title: msg, autoCloseDuration: const Duration(seconds: 5),
      closeOnClick: true,
     //backgroundColor: Colors.green,
         type: ToastificationType.success

@@ -31,7 +31,7 @@ class _DashboardState extends State<Dashboard> {
                 children: [
                   CircleAvatar(
                     radius: 20,
-                     backgroundImage: AssetImage('assets/images/profile@2x.png'),
+                    backgroundImage: AssetImage('assets/images/profile@2x.png'),
                   ),
                   SizedBox(width: 16),
                   Column(
@@ -68,16 +68,16 @@ class _DashboardState extends State<Dashboard> {
                 width: screenWidth,
                 decoration: BoxDecoration(
                   color: AppConstants.cardbackground,
-    //              color: Colors.black,
+                  //              color: Colors.black,
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(20.0),
                     topRight: Radius.circular(20.0),
                   ),
                 ),
                 child:
-                    // SizedBox(height: 30,),
+                // SizedBox(height: 30,),
                 Navigator(
-                 // key: keyOne,
+                  // key: keyOne,
                   onGenerateRoute: (routeSettings) {
                     return MaterialPageRoute(
                       builder: (context) => MyApp(),

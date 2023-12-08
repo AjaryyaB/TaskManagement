@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class AppConstants {
 
@@ -19,10 +20,10 @@ class AppConstants {
   static const Color underlineColor = Color.fromRGBO(20, 30, 85, 1);
   static const Color lightGrey = Color.fromRGBO(112, 112, 112, 1);
   static const Color hintText = Color.fromRGBO(196, 196, 196, 1);
-
+  static const Color pinputColor = Color.fromRGBO(222, 226, 255, 1);
   //Icons
   static  Image personIcon= Image.asset(
-  'assets/images/Iconly-Light-Outline-Profile.png',height: 24, width: 24,);
+  'assets/images/mail.png',height: 24, width: 24,);
   static  Image passwordIcon= Image.asset(
     'assets/images/passwordicon.png',height: 24, width: 24,);
 

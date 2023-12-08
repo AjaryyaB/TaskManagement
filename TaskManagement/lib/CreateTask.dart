@@ -54,6 +54,7 @@ class _CreateTaskState extends State<CreateTask> {
 
   int _selectedRadio = 0;
   List<String> radioLabels = ['High', 'Medium', 'Low'];
+
   void _openFileExplorer() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles();
 
@@ -66,11 +67,11 @@ class _CreateTaskState extends State<CreateTask> {
       // User canceled the file picker
     }
   }
+
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
     final scrollContent = Column(
-
       children: [
         AppBar(
           title: const Text("Create Task"),
@@ -78,7 +79,7 @@ class _CreateTaskState extends State<CreateTask> {
           elevation: 0,
         ),
         Padding(
-            padding: const EdgeInsets.only(top: 36.0),
+            padding: const EdgeInsets.only(top: 0),
             child: Container(
                 decoration: const BoxDecoration(
                   color: AppConstants.cardbackground,
@@ -88,17 +89,17 @@ class _CreateTaskState extends State<CreateTask> {
                   ),
                 ),
                 child: Padding(
-                    padding: const EdgeInsets.all(24.0),
+                    padding: const EdgeInsets.all(20),
                     child: Column(
                       children: [
                         BuildLabelText.buildLabelText("Task Type"),
 
-                        SizedBox(height: screenSize.height * 0.02),
+                        SizedBox(height: screenSize.height * 0.01),
                         BuildDropdown.buildDropdown(
                             taskTypes, "Select Task Type", onTaskTypeChanged),
-                        SizedBox(height: screenSize.height * 0.02),
+                        SizedBox(height: screenSize.height * 0.01),
                         BuildLabelText.buildLabelText("Task Title"),
-                        SizedBox(height: screenSize.height * 0.02),
+                        SizedBox(height: screenSize.height * 0.01),
 
                         BuildTextFormField.buildTextFormField(
                             'Enter Task Title',
@@ -106,19 +107,19 @@ class _CreateTaskState extends State<CreateTask> {
                             taskTitleController),
                         // Task Title TextField
 
-                        SizedBox(height: screenSize.height * 0.02),
+                        SizedBox(height: screenSize.height * 0.01),
                         BuildLabelText.buildLabelText("Group"),
-                        SizedBox(height: screenSize.height * 0.02),
+                        SizedBox(height: screenSize.height * 0.01),
                         // Group Dropdown
                         BuildDropdown.buildDropdown(
                             taskTypes, "Select Group", onGroupChanged),
                         // Priority Selector
-                        SizedBox(height: screenSize.height * 0.02),
+                        SizedBox(height: screenSize.height * 0.01),
 
                         // Group Dropdown
 
                         BuildLabelText.buildLabelText("Priority"),
-                        SizedBox(height: screenSize.height * 0.02),
+                        SizedBox(height: screenSize.height * 0.01),
                         Container(
                           constraints: const BoxConstraints(
                               maxWidth: 380, maxHeight: 30),
@@ -142,22 +143,22 @@ class _CreateTaskState extends State<CreateTask> {
                             },
                           ),
                         ),
-                        SizedBox(height: screenSize.height * 0.02),
+                        SizedBox(height: screenSize.height * 0.01),
                         BuildLabelText.buildLabelText("Add Assignee"),
-                        SizedBox(height: screenSize.height * 0.02),
+                        SizedBox(height: screenSize.height * 0.01),
                         BuildDropdown.buildDropdown(
                             assignees, "Select Assignee", onGroupChanged),
 
-                        SizedBox(height: screenSize.height * 0.02),
+                        SizedBox(height: screenSize.height * 0.01),
                         BuildLabelText.buildLabelText("Target Date"),
-                        SizedBox(height: screenSize.height * 0.02),
+                        SizedBox(height: screenSize.height * 0.01),
                         CalendarTextField(onDateSelected: onDateSelected),
-                        SizedBox(height: screenSize.height * 0.02),
+                        SizedBox(height: screenSize.height * 0.01),
                         BuildLabelText.buildLabelText("Description"),
-                        SizedBox(height: screenSize.height * 0.02),
+                        SizedBox(height: screenSize.height * 0.01),
                         DescriptionTextArea.buildDescriptionTextArea(
                             descriptionController),
-                        SizedBox(height: screenSize.height * 0.02),
+                        SizedBox(height: screenSize.height * 0.01),
                         // Add Documents Button
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -181,7 +182,7 @@ class _CreateTaskState extends State<CreateTask> {
                             ),
                           ],
                         ),
-                        SizedBox(height: screenSize.height * 0.02),
+                        SizedBox(height: screenSize.height * 0.01),
 
                         // Submit Button
                         SizedBox(
@@ -196,7 +197,6 @@ class _CreateTaskState extends State<CreateTask> {
                               backgroundColor: AppConstants.boldBlue,
                             ),
                             onPressed: () {
-
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
@@ -215,7 +215,7 @@ class _CreateTaskState extends State<CreateTask> {
                     )))),
       ],
     );
-    bool isLargerScreen = screenSize.height > 600;
+
     return Scaffold(
         body: BackgroundStack(
             child: SingleChildScrollView(

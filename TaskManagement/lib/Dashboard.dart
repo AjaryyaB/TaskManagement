@@ -31,17 +31,17 @@ class _DashboardState extends State<Dashboard> {
                 children: [
                   CircleAvatar(
                     radius: 20,
-                    // backgroundImage: AssetImage('assets/your_photo.jpg'),
+                    backgroundImage: AssetImage('assets/images/profile@2x.png'),
                   ),
                   SizedBox(width: 16),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Dashboard'),
+                      Text('Amelia Wirtz'),
                       Text(
                         'Project Manager',
                         style: TextStyle(
-                          fontSize: 16,
+                          fontSize: 13,
                         ),
                       ),
                     ],
@@ -61,21 +61,29 @@ class _DashboardState extends State<Dashboard> {
               elevation: 0,
               toolbarHeight: screenHeight * 0.10,
             ),
+            SizedBox(height: 30,),
             Expanded(
               child: Container(
                 height: screenHeight * 0.77,
                 width: screenWidth,
                 decoration: BoxDecoration(
                   color: AppConstants.cardbackground,
-    //              color: Colors.black,
+                  //              color: Colors.black,
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(20.0),
                     topRight: Radius.circular(20.0),
                   ),
                 ),
                 child:
-                    // SizedBox(height: 30,),
-                MyApp(),
+                // SizedBox(height: 30,),
+                Navigator(
+                  // key: keyOne,
+                  onGenerateRoute: (routeSettings) {
+                    return MaterialPageRoute(
+                      builder: (context) => MyApp(),
+                    );
+                  },
+                ),
               ),
             ),
           ],

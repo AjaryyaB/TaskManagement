@@ -20,7 +20,7 @@ class AppConstants {
   static const Color underlineColor = Color.fromRGBO(20, 30, 85, 1);
   static const Color lightGrey = Color.fromRGBO(112, 112, 112, 1);
   static const Color hintText = Color.fromRGBO(196, 196, 196, 1);
-
+  static const Color pinputColor = Color.fromRGBO(222, 226, 255, 1);
   //Icons
   static  Image personIcon= Image.asset(
   'assets/images/mail.png',height: 24, width: 24,);

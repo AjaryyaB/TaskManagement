@@ -40,6 +40,7 @@ dependencies:
   file_picker: ^6.1.1
   toastification: ^1.1.0
   footer: ^0.0.4
+  pinput: ^3.0.1
 
 dev_dependencies:
   flutter_test:
@@ -87,6 +88,12 @@ flutter:
      - assets/images/Iconly-Light-Outline-Calendar.png
      - assets/images/mail.png
 
+     - assets/images/Group4624.png
+     - assets/images/Group4624@2x.png
+     - assets/images/Group4624@3x.png
+     - assets/images/profile.png
+     - assets/images/profile@2x.png
+     - assets/images/profile@3x.png
 
 
   # To add assets to your application, add an assets section, like this:

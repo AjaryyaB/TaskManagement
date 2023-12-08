@@ -39,6 +39,8 @@ dependencies:
   google_fonts: ^6.1.0
   file_picker: ^6.1.1
   toastification: ^1.1.0
+  footer: ^0.0.4
+  pinput: ^3.0.1
 
 dev_dependencies:
   flutter_test:
@@ -84,6 +86,8 @@ flutter:
      - assets/images/passwordicon@2x.png
      - assets/images/passwordicon@3x.png
      - assets/images/Iconly-Light-Outline-Calendar.png
+     - assets/images/mail.png
+
      - assets/images/Group4624.png
      - assets/images/Group4624@2x.png
      - assets/images/Group4624@3x.png

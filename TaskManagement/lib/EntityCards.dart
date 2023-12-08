@@ -90,21 +90,8 @@ class EntityCard extends StatelessWidget {
                     Column(
                       children: [
                         Text('Open'),
-                        Text('${entity.open}',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 23,
-                                color: Colors.green))
-                      ],
-                    ),
-                    SizedBox(
-                      width: 18,
-                    ),
-                    Column(
-                      children: [
-                        Text('InProgress'),
                         Text(
-                          '${entity.inProgress}',
+                          '${entity.open}',
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 23,
@@ -148,7 +135,6 @@ class _MyAppState extends State<MyApp> {
 
   @override
   void initState() {
-
     super.initState();
     fetchData();
   }
@@ -170,7 +156,6 @@ class _MyAppState extends State<MyApp> {
                 ))
             .toList();
         Toastify.successToast(context, "Login Success from entity cards");
-
 
         setState(() {
           entities = entityList;
@@ -276,77 +261,78 @@ class _MyAppState extends State<MyApp> {
                           child: ListTile(
                             // title: Text('Task ID: ${tasks[index].taskId}'),
                             subtitle: Expanded(
-                            child:Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Image.asset("assets/images/taskprofile@2x.png"),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Image.asset(
+                                      "assets/images/taskprofile@2x.png"),
 
-                                Column(
-                                  children: [
-                                    Row(
-                                      children: [
-                                        Text(
-                                          '${tasks[index].assignee}',
-                                          style: TextStyle(
-                                            fontSize: 15,
-                                            color: AppConstants.boldBlue,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                        Text(
-                                          '${tasks[index].designation}',
-                                          style: TextStyle(
-                                            fontSize: 9,
-                                            color:
-                                                AppConstants.designationcolor,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    Text(
-                                      '${tasks[index].dueDate.toString()}',
-                                      style: TextStyle(
-                                        fontSize: 15,
-                                        color: AppConstants.boldBlue,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                Column(
-                                  children: [
-                                    // Conditionally display icons based on priority
-
-                                    Expanded(
-                                      child: Row(
+                                  Column(
+                                    children: [
+                                      Row(
                                         children: [
-                                          if (tasks[index].priority == 'Low')
-                                            Image.asset(
-                                                "assets/images/greenflag.png")
-                                          else if (tasks[index].priority ==
-                                              'Medium')
-                                            Image.asset(
-                                                "assets/images/orangeflag.png")
-                                          else
-                                            Image.asset(
-                                                "assets/images/redflag.png")
+                                          Text(
+                                            '${tasks[index].assignee}',
+                                            style: TextStyle(
+                                              fontSize: 15,
+                                              color: AppConstants.boldBlue,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                          Text(
+                                            '${tasks[index].designation}',
+                                            style: TextStyle(
+                                              fontSize: 9,
+                                              color:
+                                                  AppConstants.designationcolor,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
                                         ],
                                       ),
-                                    ),
-                                    Expanded(
-                                      child: Text(
-                                        '${tasks[index].priority}',
-                                        style: TextStyle(fontSize: 8),
+                                      Text(
+                                        '${tasks[index].dueDate.toString()}',
+                                        style: TextStyle(
+                                          fontSize: 15,
+                                          color: AppConstants.boldBlue,
+                                          fontWeight: FontWeight.bold,
+                                        ),
                                       ),
-                                    )
-                                  ],
-                                ),
-                                // Add your other task information here
-                              ],
+                                    ],
+                                  ),
+                                  Column(
+                                    children: [
+                                      // Conditionally display icons based on priority
+
+                                      Expanded(
+                                        child: Row(
+                                          children: [
+                                            if (tasks[index].priority == 'Low')
+                                              Image.asset(
+                                                  "assets/images/greenflag.png")
+                                            else if (tasks[index].priority ==
+                                                'Medium')
+                                              Image.asset(
+                                                  "assets/images/orangeflag.png")
+                                            else
+                                              Image.asset(
+                                                  "assets/images/redflag.png")
+                                          ],
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: Text(
+                                          '${tasks[index].priority}',
+                                          style: TextStyle(fontSize: 8),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  // Add your other task information here
+                                ],
+                              ),
                             ),
                           ),
-                        ),
                         ),
                       );
                     },

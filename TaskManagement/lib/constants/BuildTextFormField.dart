@@ -15,7 +15,7 @@ class BuildTextFormField {
           filled: true,
           fillColor: AppConstants.inputBackground,
           // Set background color to white
-          suffixIcon: SizedBox(),
+          suffixIcon: icon,
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(18.0),
             borderSide: const BorderSide(

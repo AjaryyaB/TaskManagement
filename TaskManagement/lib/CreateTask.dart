@@ -71,162 +71,169 @@ class _CreateTaskState extends State<CreateTask> {
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
-    final scrollContent = Column(
-      children: [
-        AppBar(
-          title: const Text("Create Task"),
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-        ),
-        Padding(
-            padding: const EdgeInsets.only(top: 0),
-            child: Container(
-                decoration: const BoxDecoration(
-                  color: AppConstants.cardbackground,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(20.0),
-                    topRight: Radius.circular(20.0),
-                  ),
-                ),
-                child: Padding(
-                    padding: const EdgeInsets.all(20),
-                    child: Column(
-                      children: [
-                        BuildLabelText.buildLabelText("Task Type"),
-
-                        SizedBox(height: screenSize.height * 0.01),
-                        BuildDropdown.buildDropdown(
-                            taskTypes, "Select Task Type", onTaskTypeChanged),
-                        SizedBox(height: screenSize.height * 0.01),
-                        BuildLabelText.buildLabelText("Task Title"),
-                        SizedBox(height: screenSize.height * 0.01),
-
-                        BuildTextFormField.buildTextFormField(
-                            'Enter Task Title',
-                            const SizedBox(),
-                            taskTitleController),
-                        // Task Title TextField
-
-                        SizedBox(height: screenSize.height * 0.01),
-                        BuildLabelText.buildLabelText("Group"),
-                        SizedBox(height: screenSize.height * 0.01),
-                        // Group Dropdown
-                        BuildDropdown.buildDropdown(
-                            taskTypes, "Select Group", onGroupChanged),
-                        // Priority Selector
-                        SizedBox(height: screenSize.height * 0.01),
-
-                        // Group Dropdown
-
-                        BuildLabelText.buildLabelText("Priority"),
-                        SizedBox(height: screenSize.height * 0.01),
-                        Container(
-                          constraints: const BoxConstraints(
-                              maxWidth: 380, maxHeight: 30),
-                          child: ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            itemCount: radioLabels.length,
-                            itemBuilder: (BuildContext context, int index) {
-                              return Row(
-                                children: <Widget>[
-                                  Radio(
-                                    value: index,
-                                    groupValue: _selectedRadio,
-                                    onChanged: onPriorityChanged,
-                                    activeColor: Colors
-                                        .red, // Changes the selected dot color to red
-                                  ),
-                                  Text(radioLabels[index]),
-                                  SizedBox(width: 8),
-                                ],
-                              );
-                            },
-                          ),
-                        ),
-                        SizedBox(height: screenSize.height * 0.01),
-                        BuildLabelText.buildLabelText("Add Assignee"),
-                        SizedBox(height: screenSize.height * 0.01),
-                        BuildDropdown.buildDropdown(
-                            assignees, "Select Assignee", onGroupChanged),
-
-                        SizedBox(height: screenSize.height * 0.01),
-                        BuildLabelText.buildLabelText("Target Date"),
-                        SizedBox(height: screenSize.height * 0.01),
-                        CalendarTextField(onDateSelected: onDateSelected),
-                        SizedBox(height: screenSize.height * 0.01),
-                        BuildLabelText.buildLabelText("Description"),
-                        SizedBox(height: screenSize.height * 0.01),
-                        DescriptionTextArea.buildDescriptionTextArea(
-                            descriptionController),
-                        SizedBox(height: screenSize.height * 0.01),
-                        // Add Documents Button
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "Add Documents",
-                              style: TextStyle(
-                                color: AppConstants.lightGrey,
-                              ),
-                            ),
-                            GestureDetector(
-                              onTap: _openFileExplorer,
-                              child: Text(
-                                "+Attach",
-                                style: TextStyle(
-                                  color: AppConstants.boldBlue,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: screenSize.height * 0.01),
-
-                        // Submit Button
-                        SizedBox(
-                          width: screenSize.width * 0.60,
-                          height: screenSize.height * 0.06,
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              // Set the background color of the button
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(15.0),
-                              ),
-                              backgroundColor: AppConstants.boldBlue,
-                            ),
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => Dashboard()),
-                              );
-                            },
-                            child: Text(
-                              "Submit",
-                              style: TextStyle(
-                                fontSize: 18,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    )))),
-      ],
-    );
-
     return Scaffold(
-        body: BackgroundStack(
-            child: SingleChildScrollView(
-                child: GestureDetector(
-      onTap: () {
-        // Unfocus the current focus when tapped outside the TextFormField
-        FocusScope.of(context).unfocus();
-      },
-      child: Container(
-        child: scrollContent,
+      body: BackgroundStack(
+        child: SafeArea( // Ensures layout is not obstructed by system UI
+          child: Column(
+            children: [
+              AppBar(
+                title: const Text("Create Task"),
+                backgroundColor: Colors.transparent,
+                elevation: 0,
+              ),
+              Expanded( // Fills the remaining space below the AppBar
+                child: Card(
+                  color: AppConstants.cardbackground,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(20.0),
+                      topRight: Radius.circular(20.0),
+                    ),
+                  ),
+                  // Card properties go here
+                  child: SingleChildScrollView(
+                      child: Container(
+                          decoration: const BoxDecoration(
+                            color: AppConstants.cardbackground,
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(20.0),
+                              topRight: Radius.circular(20.0),
+                            ),
+                          ),
+                          child: Padding(
+                              padding: const EdgeInsets.all(20),
+                              child: Column(
+                                children: [
+                                  BuildLabelText.buildLabelText("Task Type"),
+
+                                  SizedBox(height: screenSize.height * 0.01),
+                                  BuildDropdown.buildDropdown(
+                                      taskTypes, "Select Task Type", onTaskTypeChanged),
+                                  SizedBox(height: screenSize.height * 0.01),
+                                  BuildLabelText.buildLabelText("Task Title"),
+                                  SizedBox(height: screenSize.height * 0.01),
+
+                                  BuildTextFormField.buildTextFormField(
+                                      'Enter Task Title',
+                                      const SizedBox(),
+                                      taskTitleController),
+                                  // Task Title TextField
+
+                                  SizedBox(height: screenSize.height * 0.01),
+                                  BuildLabelText.buildLabelText("Group"),
+                                  SizedBox(height: screenSize.height * 0.01),
+                                  // Group Dropdown
+                                  BuildDropdown.buildDropdown(
+                                      taskTypes, "Select Group", onGroupChanged),
+                                  // Priority Selector
+                                  SizedBox(height: screenSize.height * 0.01),
+
+                                  // Group Dropdown
+
+                                  BuildLabelText.buildLabelText("Priority"),
+                                  SizedBox(height: screenSize.height * 0.01),
+                                  Container(
+                                    constraints: const BoxConstraints(
+                                        maxWidth: 380, maxHeight: 30),
+                                    child: ListView.builder(
+                                      scrollDirection: Axis.horizontal,
+                                      itemCount: radioLabels.length,
+                                      itemBuilder: (BuildContext context, int index) {
+                                        return Row(
+                                          children: <Widget>[
+                                            Radio(
+                                              value: index,
+                                              groupValue: _selectedRadio,
+                                              onChanged: onPriorityChanged,
+                                              activeColor: Colors
+                                                  .red, // Changes the selected dot color to red
+                                            ),
+                                            Text(radioLabels[index]),
+                                            SizedBox(width: 8),
+                                          ],
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                  SizedBox(height: screenSize.height * 0.01),
+                                  BuildLabelText.buildLabelText("Add Assignee"),
+                                  SizedBox(height: screenSize.height * 0.01),
+                                  BuildDropdown.buildDropdown(
+                                      assignees, "Select Assignee", onGroupChanged),
+
+                                  SizedBox(height: screenSize.height * 0.01),
+                                  BuildLabelText.buildLabelText("Target Date"),
+                                  SizedBox(height: screenSize.height * 0.01),
+                                  CalendarTextField(onDateSelected: onDateSelected),
+                                  SizedBox(height: screenSize.height * 0.01),
+                                  BuildLabelText.buildLabelText("Description"),
+                                  SizedBox(height: screenSize.height * 0.01),
+                                  DescriptionTextArea.buildDescriptionTextArea(
+                                      descriptionController),
+                                  SizedBox(height: screenSize.height * 0.01),
+                                  // Add Documents Button
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        "Add Documents",
+                                        style: TextStyle(
+                                          color: AppConstants.lightGrey,
+                                        ),
+                                      ),
+                                      GestureDetector(
+                                        onTap: _openFileExplorer,
+                                        child: Text(
+                                          "+Attach",
+                                          style: TextStyle(
+                                            color: AppConstants.boldBlue,
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(height: screenSize.height * 0.01),
+
+                                  // Submit Button
+                                  SizedBox(
+                                    width: screenSize.width * 0.60,
+                                    height: screenSize.height * 0.06,
+                                    child: ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                        // Set the background color of the button
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(15.0),
+                                        ),
+                                        backgroundColor: AppConstants.boldBlue,
+                                      ),
+                                      onPressed: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => Dashboard()),
+                                        );
+                                      },
+                                      child: Text(
+                                        "Submit",
+                                        style: TextStyle(
+                                          fontSize: 18,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              )))),
+                ),
+              ),
+
+            ],
+          ),
+        ),
       ),
-    ))));
+    );
   }
+
 }
+

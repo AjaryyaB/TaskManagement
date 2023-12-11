@@ -2,8 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:taskmanagement/CreateTask.dart';
 import 'package:taskmanagement/EntityCards.dart';
+import 'package:taskmanagement/constants/AllTasks.dart';
 import 'package:taskmanagement/constants/AppConstants.dart';
 import 'package:taskmanagement/constants/BackgroundImage.dart';
+import 'package:taskmanagement/test.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({Key? key}) : super(key: key);
@@ -161,6 +163,10 @@ class _DashboardState extends State<Dashboard> {
               icon: Icon(Icons.bar_chart),
               onPressed: () {
                 // Handle statistics button tap
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => AllTasks()),
+                );
               },
             ),
             SizedBox(width: 20),

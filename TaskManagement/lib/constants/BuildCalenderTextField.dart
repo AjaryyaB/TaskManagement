@@ -13,12 +13,32 @@ class CalendarTextField extends StatefulWidget {
 class _CalendarTextFieldState extends State<CalendarTextField> {
   DateTime? _selectedDate;
 
+
+
   Future<void> _selectDate(BuildContext context) async {
+    final DateTime currentDate = DateTime.now();
     final DateTime? pickedDate = await showDatePicker(
+
       context: context,
       initialDate: _selectedDate ?? DateTime.now(),
-      firstDate: DateTime(2000),
+      firstDate:currentDate,
       lastDate: DateTime(2101),
+      builder: (BuildContext context, Widget? child) {
+        return Theme(
+          data: ThemeData.light().copyWith(
+            // Customize your date picker theme here
+            colorScheme: const ColorScheme.light(
+              primary: AppConstants.boldBlue, // Header background color
+              onPrimary: Colors.white, // Header text color
+              surface: Colors.white, // Calendar background color
+              onSurface: Colors.black, // Calendar text color
+              shadow: AppConstants.boldBlue
+            ),
+
+          ),
+          child: child!,
+        );
+      },
     );
 
     if (pickedDate != null && pickedDate != _selectedDate) {
@@ -31,6 +51,7 @@ class _CalendarTextFieldState extends State<CalendarTextField> {
 
   @override
   Widget build(BuildContext context) {
+
     return TextFormField(
       readOnly: true,
       controller: TextEditingController(

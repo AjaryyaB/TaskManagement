@@ -5,6 +5,7 @@ import 'package:taskmanagement/Login.dart';
 import 'package:taskmanagement/constants/AppConstants.dart';
 import 'package:taskmanagement/constants/BackgroundImage.dart';
 import 'package:taskmanagement/constants/AppConstants.dart';
+import 'package:taskmanagement/constants/Toast.dart';
 
 class LandingPage extends StatefulWidget {
   const LandingPage({super.key});
@@ -69,6 +70,8 @@ class _LandingPageState extends State<LandingPage> {
                       context,
                       MaterialPageRoute(builder: (context) => Login()),
                     );
+                    Toastify.successToast(context, "http://192.168.5.214:8080/taskManagement/getAllEntityDetails");
+
                   },
                   child: Text("Let's Start",style: TextStyle(
                     fontSize:18,

@@ -180,7 +180,7 @@ class Login extends StatelessWidget {
                                   onPressed: () {
                                     print("Email : ${emailController.text}");
                                     print("Email : ${emailController.text}");
-                                    Toastify.successToast(context, "Login Success");
+                                    //Toastify.successToast(context, "http://192.168.5.214:8080/taskManagement/getAllEntityDetails");
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(

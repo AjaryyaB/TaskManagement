@@ -14,6 +14,7 @@ class Dashboard extends StatefulWidget {
 
 class _DashboardState extends State<Dashboard> {
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  int selectedIndex = 0; // Added field to track selected item index
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +26,7 @@ class _DashboardState extends State<Dashboard> {
       body: BackgroundStack(
         child: Column(
           children: [
-            SizedBox(height: screenHeight * 0.02), // Adjusted spacing
+            SizedBox(height: screenHeight * 0.02),
             AppBar(
               title: Row(
                 children: [
@@ -68,16 +69,12 @@ class _DashboardState extends State<Dashboard> {
                 width: screenWidth,
                 decoration: BoxDecoration(
                   color: AppConstants.cardbackground,
-                  //              color: Colors.black,
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(20.0),
                     topRight: Radius.circular(20.0),
                   ),
                 ),
-                child:
-                // SizedBox(height: 30,),
-                Navigator(
-                  // key: keyOne,
+                child: Navigator(
                   onGenerateRoute: (routeSettings) {
                     return MaterialPageRoute(
                       builder: (context) => MyApp(),
@@ -128,49 +125,13 @@ class _DashboardState extends State<Dashboard> {
                 ],
               ),
             ),
-            ListTile(
-              title:
-              Text('Dashboard',style: TextStyle(
-                color: AppConstants.boldBlue
-              ),),
-              onTap: () {
-                // Handle item 1 tap
-              },
-            ),
-            ListTile(
-              title:
-              Text('Inbox',style: TextStyle(
-                  color: AppConstants.boldBlue
-              ),),
-              onTap: () {
-                // Handle item 2 tap
-              },
-            ),
-            ListTile(
-              title:
-              Text('Tasks',style: TextStyle(
-                  color: AppConstants.boldBlue
-              ),),
-              onTap: () {
-                // Handle item 2 tap
-              },
-            ),
-            ListTile(
-              title: Text('Groups',style: TextStyle(
-                  color: AppConstants.boldBlue
-              ),),
-              onTap: () {
-                // Handle item 2 tap
-              },
-            ),
-            ListTile(
-              title: Text('Calender',style: TextStyle(
-                  color: AppConstants.boldBlue
-              ),),
-              onTap: () {
-                // Handle item 2 tap
-              },
-            ),
+            buildDrawerItem(0, 'Dashboard', AssetImage('assets/images/Iconly-Light-Outline-Category.png')),
+            buildDrawerItem(1, 'Inbox', AssetImage('assets/images/Iconly-Light-Outline-Message.png')),
+            buildDrawerItem(2, 'Tasks',AssetImage('assets/images/Iconly-Light-Tick-Square.png')),
+            buildDrawerItem(3, 'Groups',AssetImage('assets/images/2-User.png')),
+            buildDrawerItem(4, 'Calendar',AssetImage('assets/images/Iconly-Light-Outline-Calender.png')),
+            buildDrawerItem(5, 'Users',AssetImage('assets/images/2-User.png')),
+            buildDrawerItem(6, 'Masters',AssetImage('assets/images/2-User.png')),
           ],
         ),
       ),
@@ -216,6 +177,72 @@ class _DashboardState extends State<Dashboard> {
               },
             ),
           ],
+        ),
+      ),
+    );
+  }
+
+  Widget buildDrawerItem(int index, String title, ImageProvider<Object> imageProvider) {
+    return Container(
+      margin: EdgeInsets.only(right: 20.0), // Adjust margin as needed
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          onTap: () {
+            setState(() {
+              selectedIndex = index;
+            });
+
+            // You can add additional logic here based on the selected index
+            switch (index) {
+              case 0:
+              // Handle Dashboard selection
+                break;
+              case 1:
+              // Handle Inbox selection
+                break;
+              case 2:
+              // Handle Inbox selection
+                break;
+              case 3:
+              // Handle Inbox selection
+                break;
+            // Add cases for other items if needed
+            }
+          },
+          child: Container(
+            padding: EdgeInsets.symmetric(vertical: 10.0),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.only(
+                topRight: Radius.circular(index == selectedIndex ? 20.0 : 0.0),
+                bottomRight: Radius.circular(index == selectedIndex ? 20.0 : 0.0),
+              ),
+              color: index == selectedIndex
+                  ? AppConstants.boldBlue // Highlighted color
+                  : Colors.transparent,   // Default color
+            ),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: Row(
+                children: [
+                  Image(
+                    image: imageProvider,
+                    width: 24.0, // Adjust the width as needed
+                    height: 24.0, // Adjust the height as needed
+                  ),
+                  SizedBox(width: 16.0),
+                  Text(
+                    title,
+                    style: TextStyle(
+                      color: index == selectedIndex
+                          ? Colors.white // Highlighted text color
+                          : Colors.black, // Default text color
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
         ),
       ),
     );

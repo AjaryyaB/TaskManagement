@@ -202,6 +202,10 @@ class _DashboardState extends State<Dashboard> {
               icon: Icon(Icons.bar_chart),
               onPressed: () {
                 // Handle statistics button tap
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => AllTasks()),
+                );
               },
             ),
             SizedBox(width: 20),

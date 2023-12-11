@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pinput/pinput.dart';
@@ -52,7 +54,35 @@ class _EnterOtpState extends State<EnterOtp> {
   }
 
   final _formKey = GlobalKey<FormState>();
+  late Timer _resendTimer;
+  int _remainingTime = 60;
+  bool _isTimerRunning = false;
+  @override
+  void dispose() {
+    _resendTimer.cancel(); // Cancel the timer to prevent memory leaks
+    super.dispose();
+  }
+  void startResendTimer() {
+    const int timerDurationInSeconds = 1; // Set the timer duration here
+    _isTimerRunning = true;
+    _resendTimer = Timer.periodic(Duration(seconds: timerDurationInSeconds), (timer) {
+      setState(() {
+        if (_remainingTime > 0) {
+          _remainingTime--;
+        } else {
+          _isTimerRunning = false;
+          _resendTimer?.cancel();
+        }
+      });
+    });
+  }
 
+  void resendCode() {
+    // Implement your code to resend the OTP here
+    // For demonstration purposes, I'm starting the timer here
+    _remainingTime = 60;
+    startResendTimer();
+  }
   Widget buildHeading(String heading) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -62,28 +92,41 @@ class _EnterOtpState extends State<EnterOtp> {
           child: Text(heading,
               style: const TextStyle(
                   color: AppConstants.boldBlue,
-                  fontSize: 28,
+                  fontSize: 24,
                   fontWeight: FontWeight.bold)),
         ),
       ],
     );
   }
   Widget buildResendCode(BuildContext context) {
-    return InkWell(
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => Login()),
-        );
-      },
-      child: Align(
-        alignment: Alignment.centerRight,
-        child: Text("Resend Code",
-            style: const TextStyle(color: AppConstants.boldBlue, fontSize: 15)),
-      ),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Flexible(
+          child: _isTimerRunning
+              ? Text(
+            "Time Remaining: $_remainingTime Sec",
+            style: const TextStyle(
+              color: AppConstants.boldBlue,
+              fontSize: 12,
+            ),
+          )
+              : SizedBox.shrink(), // Hide the text when the timer is not running
+        ),
+        InkWell(
+          onTap: _isTimerRunning ? null : () => resendCode(),
+          child: Text(
+            "Resend Code",
+            style: const TextStyle(
+              color: AppConstants.boldBlue,
+              fontSize: 15,
+            ),
+          ),
+        ),
+      ],
     );
   }
+
   var otpController = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -171,6 +214,17 @@ class _EnterOtpState extends State<EnterOtp> {
                                   height: screenSize.height * 0.015,
                                 ),
                                 buildResendCode(context),
+                                if(_isTimerRunning)
+                                  SizedBox(
+                                    height: screenSize.height * 0.015,
+                                  ),
+                                Visibility(
+
+                                    visible: _isTimerRunning,
+                                    child:
+                                Center(child: Text("Code Sent Succesfully",style: TextStyle(color: AppConstants.resendCodeText,fontSize: 16),))
+                                ),
+
                                 SizedBox(
                                   height: screenSize.height * 0.050,
                                 ),

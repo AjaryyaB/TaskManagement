@@ -17,6 +17,10 @@ class AppConstants {
   static const Color lightGrey = Color.fromRGBO(112, 112, 112, 1);
   static const Color hintText = Color.fromRGBO(196, 196, 196, 1);
   static const Color pinputColor = Color.fromRGBO(222, 226, 255, 1);
+  static const Color tabHeaderText = Color.fromRGBO(83, 98, 194, 1);
+  static const Color tabDivider = Color.fromRGBO(173, 200, 242, 1);
+  static const Color resendCodeText = Color.fromRGBO(41, 206, 52, 1);
+
   //Icons
   static Image personIcon = Image.asset(
     'assets/images/mail.png',

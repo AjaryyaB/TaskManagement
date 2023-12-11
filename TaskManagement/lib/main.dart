@@ -21,8 +21,8 @@ class _TaskManagementState extends State<TaskManagement> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        textTheme: GoogleFonts.robotoFlexTextTheme(textTheme).copyWith(
-          bodyMedium: GoogleFonts.roboto(textStyle: textTheme.bodyMedium),
+        textTheme: GoogleFonts.poppinsTextTheme(textTheme).copyWith(
+          bodyMedium: GoogleFonts.poppins(textStyle: textTheme.bodyMedium),
         ),
       ),
       home: LandingPage(),

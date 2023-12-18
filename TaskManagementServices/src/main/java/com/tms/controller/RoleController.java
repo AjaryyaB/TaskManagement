@@ -9,23 +9,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.tms.dto.GroupCreateDto;
-import com.tms.service.GroupService;
+import com.tms.dto.RoleDto;
+import com.tms.service.MRoleService;
 
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/group")
+@RequestMapping("/role")
 @CrossOrigin(origins = "*")
-public class GroupController {
+public class RoleController {
 
-	
 	@Autowired
-	private GroupService groupService;
-	
-	@PostMapping("/createGroup")
+	private MRoleService mRoleService;
+
+	@PostMapping("/createRole")
 	@ResponseStatus(value = HttpStatus.CREATED)
-	public GroupCreateDto createGroup(@Valid @RequestBody GroupCreateDto createDto) {
-		return groupService.createGroup(createDto);
+	public RoleDto createGroup(@Valid @RequestBody RoleDto roleDto) {
+		return mRoleService.createRole(roleDto);
 	}
 }

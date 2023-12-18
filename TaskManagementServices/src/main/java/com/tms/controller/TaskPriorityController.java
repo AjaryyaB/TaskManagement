@@ -9,23 +9,24 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.tms.dto.GroupCreateDto;
-import com.tms.service.GroupService;
+import com.tms.dto.TaskPriorityDto;
+import com.tms.service.TaskPriorityService;
 
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/group")
+@RequestMapping("/taskPriority")
 @CrossOrigin(origins = "*")
-public class GroupController {
+public class TaskPriorityController {
 
 	
 	@Autowired
-	private GroupService groupService;
+	private TaskPriorityService priorityService;
 	
-	@PostMapping("/createGroup")
+	@PostMapping("/createPriority")
 	@ResponseStatus(value = HttpStatus.CREATED)
-	public GroupCreateDto createGroup(@Valid @RequestBody GroupCreateDto createDto) {
-		return groupService.createGroup(createDto);
+	public TaskPriorityDto createPriority(@Valid @RequestBody TaskPriorityDto dto ) {
+		return priorityService.createTaskPriority(dto);
+		
 	}
 }

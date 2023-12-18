@@ -3,6 +3,7 @@ package com.tms.entities;
 import java.time.LocalDate;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -25,16 +26,18 @@ public class MUser {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long userId;
-
+	@Column(length = 50)
 	private String userName;
-
+	@Column(length = 50)
 	private String password;
-
+	@Column(length = 50)
 	private String fullName;
 
 	private LocalDate createDate;
-
+	@Column(length = 15)
 	private String status;
+	@Column(length = 50)
+	private String designation;
 
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "role_id")
@@ -44,6 +47,7 @@ public class MUser {
 	@JoinColumn(name = "entity_id")
 	private MEntity entityId;
 
-	private String endDate;
-	
+	private LocalDate endDate;
+
+	private Long mobile;
 }

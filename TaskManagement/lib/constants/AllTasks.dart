@@ -181,7 +181,8 @@ class _AllTasksState extends State<AllTasks>
             borderRadius: BorderRadius.all(Radius.circular(20))
           ),
           elevation: 4.0, // Adjust elevation for shadow
-          margin: EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0), // Spacing around the card
+          margin: EdgeInsets.fromLTRB(10.0, index == 0 ? 30.0 : 6.0, 10.0, 6.0),
+         // margin: EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0), // Spacing around the card
           child: ListTile(
             title: Text(task.assignee),
             subtitle: Text(task.designation),
@@ -237,14 +238,14 @@ class _AllTasksState extends State<AllTasks>
                         children: [
                           Container(
                             height: 3.0, // Height of the black line
-                            color: Colors.black, // Color of the black line
+                           color: AppConstants.pinputColor, // Color of the black line
                           ),
                           TabBar(
                             controller: _tabController,
                             indicator: BoxDecoration(
                               border: Border(
                                 bottom: BorderSide(
-                                  color: Colors.green,
+                                  color: AppConstants.boldBlue,
                                   // Color for the active tab indicator
                                   width:
                                       3.0, // Thickness of the active tab indicator
@@ -296,111 +297,6 @@ class _AllTasksState extends State<AllTasks>
   }
 }
 
-// Tab(
-// child: Text(
-// "Open",
-// style: TextStyle(color: Colors.black),
-// ),
-// ),
-// Tab(
-// child: Text(
-// "Pending",
-// style: TextStyle(color: Colors.black),
-// ),
-// ),
-// Tab(
-// child: Text(
-// "Closed",
-// style: TextStyle(color: Colors.black),
-// ),
-// ),
-//
-// Card(
-// color: AppConstants.cardbackground,
-// shape: RoundedRectangleBorder(
-// borderRadius: BorderRadius.only(
-// topLeft: Radius.circular(20.0),
-// topRight: Radius.circular(20.0),
-// ),
-// ),
-// child: Column(
-// children: [
-// // TabBar inside Material
-// Material(
-// color: AppConstants.cardbackground,
-// // Ensure this matches the Card's color
-// child: Container(
-// decoration: BoxDecoration(
-// borderRadius: BorderRadius.only(
-// topLeft: Radius.circular(20.0),
-// topRight: Radius.circular(20.0),
-// ),
-// ),
-// child: Stack(
-// alignment: Alignment.bottomCenter,
-// children: [
-// Container(
-// height: 2.0, // Height of the black line
-// color: Colors.black, // Color of the black line
-// ),
-// TabBar(
-//
-//
-// controller: _tabController,
-// indicator: BoxDecoration(
-// border: Border(
-// bottom: BorderSide(
-// color: Colors.green, // Color for the active tab indicator
-// width: 3.0, // Thickness of the active tab indicator
-// ),
-// ),
-// ),
-// //
-// // indicatorColor: Colors.green,
-// // // Color for the active tab indicator
-// // indicatorSize: TabBarIndicatorSize.tab,
-// // // Makes the indicator fit to each tab
-// // physics: AlwaysScrollableScrollPhysics(),
-// tabs: const [
-// Tab(
-// child: Text(
-// "Open",
-// style: TextStyle(color: Colors.black),
-// ),
-// ),
-// Tab(
-// child: Text(
-// "Pending",
-// style: TextStyle(color: Colors.black),
-// ),
-// ),
-// Tab(
-// child: Text(
-// "Closed",
-// style: TextStyle(color: Colors.black),
-// ),
-// ),
-// ],
-// ),
-// ],
-// ),
-// ),
-// ),
-// Expanded(
-// // TabBarView
-// child: TabBarView(
-// controller: _tabController,
-// children: const [
-// // Replace with your actual content
-// Center(child: Text("Content of Tab 1")),
-// Center(child: Text("Content of Tab 2")),
-// Center(child: Text("Content of Tab 3")),
-// ],
-// ),
-// ),
-// ],
-// ),
-// ),
 
 
 class TaskList {

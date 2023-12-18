@@ -10,6 +10,7 @@ class AppConstants {
 
   //Colors
   static const Color boldBlue = Color.fromRGBO(20, 30, 85, 1);
+
   static const Color cardbackground = Color.fromRGBO(239, 243, 252, 1);
   static const Color inputBackground = Color.fromRGBO(249, 250, 255, 1);
   static const Color inputBorder = Color.fromRGBO(249, 250, 255, 1);
@@ -20,6 +21,8 @@ class AppConstants {
   static const Color tabHeaderText = Color.fromRGBO(83, 98, 194, 1);
   static const Color tabDivider = Color.fromRGBO(173, 200, 242, 1);
   static const Color resendCodeText = Color.fromRGBO(41, 206, 52, 1);
+  static const Color subTextColor =Color.fromRGBO(130, 139, 194, 1);
+  static const Color boldBlue1 = Color.fromRGBO(46, 42, 96, 1);
 
   //Icons
   static Image personIcon = Image.asset(

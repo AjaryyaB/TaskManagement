@@ -5,13 +5,15 @@ class BuildTextFormField {
   static Widget buildTextFormField(
       String labelText, Widget icon, TextEditingController controller) {
     return Container(
-      constraints: const BoxConstraints(maxWidth: 390, maxHeight: 60),
+      constraints: const BoxConstraints(maxWidth: 390, maxHeight: 50),
       child: TextFormField(
+       // textAlign: TextAlign.center,
         controller: controller,
         decoration: InputDecoration(
-          labelText: labelText,
-          floatingLabelBehavior: FloatingLabelBehavior.auto,
-          labelStyle: TextStyle(color: AppConstants.hintText),
+          // labelText: labelText,
+          // floatingLabelBehavior: FloatingLabelBehavior.auto,
+          // labelStyle: TextStyle(color: AppConstants.hintText),
+          hintText: labelText,
           filled: true,
           fillColor: AppConstants.inputBackground,
           // Set background color to white

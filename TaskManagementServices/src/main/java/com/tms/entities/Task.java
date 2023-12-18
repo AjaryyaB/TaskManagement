@@ -1,5 +1,8 @@
 package com.tms.entities;
 
+import java.time.LocalDate;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -22,19 +25,19 @@ public class Task {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long taskId;
-
+	@Column(length = 50)
 	private String taskName;
-
+	@Column(length = 150)
 	private String taskDesc;
 
-	private String taskStartDate;
+	private LocalDate taskStartDate;
 
-	private String taskEndDate;
-
+	private LocalDate taskEndDate;
+	@Column(length = 15)
 	private String taskStatus;
-
+	@Column(length = 150)
 	private String taskNotes;
-
+	@Column(length = 50)
 	private String taskAttachments;
 
 	@ManyToOne
@@ -49,15 +52,17 @@ public class Task {
 	@JoinColumn(name = "task_priority_id")
 	private TaskPriority taskPriorityId;
 
-	private String targetDate;
+	private LocalDate targetDate;
 
-	private String taskConfiFlag;
+	private Boolean taskConfiFlag;
 
 	@ManyToOne
 	@JoinColumn(name = "group_id")
 	private GroupEntity groupId;
-
-	private long taskRoleId;
+	
+	@ManyToOne
+	@JoinColumn(name = "role_id")
+	private MRole taskRoleId;
 
 	@ManyToOne
 	@JoinColumn(name = "entity_id")

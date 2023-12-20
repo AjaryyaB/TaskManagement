@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:taskmanagement/Calender.dart';
 import 'package:taskmanagement/CreateTask.dart';
 import 'package:taskmanagement/EntityCards.dart';
 import 'package:taskmanagement/Entity.dart';
@@ -245,7 +246,10 @@ class _DashboardState extends State<Dashboard> {
               );
                 break;
               case 4:
-
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Calender()),
+                );
                 break;
               case 5:
                 Navigator.push(

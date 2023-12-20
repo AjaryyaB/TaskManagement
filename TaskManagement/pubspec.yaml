@@ -41,6 +41,7 @@ dependencies:
   footer: ^0.0.4
   pinput: ^3.0.1
   intl: ^0.17.0
+  syncfusion_flutter_datepicker: ^21.2.3
 
 dev_dependencies:
   flutter_test:

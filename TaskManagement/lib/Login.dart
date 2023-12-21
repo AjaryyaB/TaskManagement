@@ -143,7 +143,7 @@ class Login extends StatelessWidget {
                                     ),
                                     BuildTextFormField.buildTextFormField(
                                         "Enter Email",
-                                        AppConstants.personIcon,
+                                        AppConstants.email,
                                         emailController),
                                     SizedBox(
                                       height: screenSize.height * 0.015,

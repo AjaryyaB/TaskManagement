@@ -11,6 +11,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.Email;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -34,11 +35,15 @@ public class MUser {
 	private String fullName;
 
 	private LocalDate createDate;
+	
 	@Column(length = 15)
 	private String status;
 	@Column(length = 50)
 	private String designation;
 
+	@Column(length = 100)
+	private String email;
+	
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "role_id")
 	private MRole roleId;
@@ -50,4 +55,7 @@ public class MUser {
 	private LocalDate endDate;
 
 	private Long mobile;
+
+	private boolean isDefaultUser;
+
 }

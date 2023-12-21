@@ -41,6 +41,8 @@ public class TaskDto {
 	private Boolean taskConfiFlag;
 
 	private String group;
+	
+	private Boolean isGroup;
 
 	private String taskRole;
 

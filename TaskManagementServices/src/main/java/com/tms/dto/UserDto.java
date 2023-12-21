@@ -26,7 +26,8 @@ public class UserDto {
 	private String role;
 
 	private String entity;
-
+	
+	private String email;
 //	private LocalDate endDate;
 
 	private Long mobile;

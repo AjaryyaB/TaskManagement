@@ -1,6 +1,7 @@
 package com.tms.controller;
 
-
+import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,17 +28,27 @@ public class MUserController {
 	private MUserService service;
 
 	@RequestMapping("/authenticateUser")
-	
-	public ResponseEntity<Map<String, Object>> authenticateUser(@Valid @RequestBody AuthenticationDto authenticationDto) {
-		
-		
-		Map<String, Object> validateUser = service.validateUser(authenticationDto.getUserName(),
-				authenticationDto.getPassword());
-		return ResponseEntity.ok(validateUser);
+	public ResponseEntity<Map<String, Object>> authenticateUser(
+			@Valid @RequestBody AuthenticationDto authenticationDto) {
+		Map<String, Object> result = new HashMap<>();
+		boolean validateUser = service.validateUser(authenticationDto.getUserName(), authenticationDto.getPassword());
+
+		if (validateUser) {
+			result.put("message", "Login Successfull");
+			result.put("timestamp", new Date());
+
+			return ResponseEntity.ok(result);
+		} else {
+			result.put("message", "Invalid Credentials");
+			result.put("timestamp", new Date());
+
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(result);
+		}
+
 	}
+
 	@RequestMapping("/createUser")
-	@ResponseStatus(value = HttpStatus.CREATED)
-	public UserDto createUser(@Valid @RequestBody UserDto userDto) {
-		return service.createUser(userDto);
+	public ResponseEntity<UserDto> createUser(@Valid @RequestBody UserDto userDto) {
+		return new ResponseEntity<>(service.createUser(userDto), HttpStatus.CREATED);
 	}
 }

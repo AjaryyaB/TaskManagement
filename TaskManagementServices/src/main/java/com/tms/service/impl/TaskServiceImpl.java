@@ -1,6 +1,5 @@
 package com.tms.service.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -8,7 +7,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.tms.dto.GetAllTaskDto;
+import com.tms.dto.GetTaskDto;
 import com.tms.dto.TaskDto;
 import com.tms.entities.GroupEntity;
 import com.tms.entities.MEntity;
@@ -52,15 +51,16 @@ public class TaskServiceImpl implements TaskService {
 	public TaskDto createTask(TaskDto createDto) {
 
 		Task task = new Task();
-
-		if (createDto.getEntity() != null) {
-			Optional<MEntity> entity = mEntityRepository.findById(Long.parseLong(createDto.getEntity()));
-			task.setEntityId(entity.get());
-		}
-
-		if (createDto.getGroup() != null) {
-			Optional<GroupEntity> group = groupRepository.findById(Long.parseLong(createDto.getGroup()));
-			task.setGroupId(group.get());
+		if (createDto!=null && createDto.getIsGroup()) {
+			if (createDto.getGroup() != null) {
+				Optional<GroupEntity> group = groupRepository.findById(Long.parseLong(createDto.getGroup()));
+				task.setGroupId(group.get());
+			}
+		} else {
+			if (createDto.getEntity() != null) {
+				Optional<MEntity> entity = mEntityRepository.findById(Long.parseLong(createDto.getEntity()));
+				task.setEntityId(entity.get());
+			}
 		}
 
 		if (createDto.getTaskAssignUser() != null) {
@@ -94,98 +94,67 @@ public class TaskServiceImpl implements TaskService {
 
 		Task save = taskRepository.save(task);
 		createDto.setTaskId(save.getTaskId());
-//		createDto.setEntity(task.getEntityId().getEntityId());
 		return createDto;
 	}
 
-//	@Override
-//	public List<GetAllTaskDto> getAllTaskByEntityId(long entity_id) {
-//
-//		List<GetAllTaskDto> list2 = taskRepository.findAll().stream()
-//				.filter(task -> task.getEntityId().getEntityId() == entity_id).map(task -> {
-//					GetAllTaskDto taskDto = new GetAllTaskDto();
-//					taskDto.setTaskId(task.getTaskId());
-//					taskDto.setTaskName(task.getTaskName());
-//					taskDto.setTaskDesc(task.getTaskDesc());
-//					taskDto.setTaskAssignUserName(task.getTaskAssignUserId().getUserName());
-//					taskDto.setTaskAssignUserDesignation(task.getTaskAssignUserId().getDesignation());
-//					taskDto.setTaskEndDate(task.getTaskEndDate());
-//					taskDto.setPriority(task.getTaskPriorityId().getTaskPriorityName());
-//
-//					return taskDto;
-//				}).toList();
-//
-//		return list2;
-//	}
-//	@Override
-//	public List<GetAllTaskDto> getAllTaskByEntityId(long entity_id) {
-//
-//	    List<GetAllTaskDto> list2 = taskRepository.findAll().stream()
-//	            .filter(task -> {
-//	                MEntity taskEntity = task.getEntityId();
-//	                return taskEntity != null && taskEntity.getEntityId() == entity_id;
-//	            })
-//	            .map(task -> {
-//	                GetAllTaskDto taskDto = new GetAllTaskDto();
-//	                taskDto.setTaskId(task.getTaskId());
-//	                taskDto.setTaskName(task.getTaskName());
-//	                taskDto.setTaskDesc(task.getTaskDesc());
-//
-//	                MUser taskAssignUser = task.getTaskAssignUserId();
-//	                if (taskAssignUser != null) {
-//	                    taskDto.setTaskAssignUserName(taskAssignUser.getUserName());
-//	                    taskDto.setTaskAssignUserDesignation(taskAssignUser.getDesignation());
-//	                }
-//
-//	                taskDto.setTaskEndDate(task.getTaskEndDate());
-//
-//	                TaskPriority taskPriority = task.getTaskPriorityId();
-//	                if (taskPriority != null) {
-//	                    taskDto.setPriority(taskPriority.getTaskPriorityName());
-//	                }
-//
-//	                return taskDto;
-//	            })
-//	            .collect(Collectors.toList());
-//
-//	    return list2;
-//	}
+	@Override
+	public List<GetTaskDto> getAllTaskByEntityId(long entity_id) {
+		MEntity entity = mEntityRepository.findById(entity_id).orElse(null);
+
+		List<GetTaskDto> tasksForEntity = taskRepository.findAll().stream().filter(task -> {
+			MEntity taskEntity = task.getEntityId();
+			return (taskEntity != null && taskEntity.getEntityId() == entity_id);
+		}).map(this::mapToGetAllTaskDto).collect(Collectors.toList());
+
+		List<GetTaskDto> tasksForGroupEntities = taskRepository.findAll().stream()
+				.filter(task -> task.getGroupId() != null && task.getGroupId().getEntities().stream()
+						.anyMatch(groupEntity -> groupEntity.getEntityId() == entity_id))
+				.map(this::mapToGetAllTaskDto).collect(Collectors.toList());
+
+		tasksForEntity.addAll(tasksForGroupEntities);
+
+		return tasksForEntity;
+	}
+
+	private GetTaskDto mapToGetAllTaskDto(Task task) {
+		GetTaskDto taskDto = new GetTaskDto();
+		taskDto.setTaskId(task.getTaskId());
+		taskDto.setTaskName(task.getTaskName());
+		taskDto.setTaskDesc(task.getTaskDesc());
+
+		MUser taskAssignUser = task.getTaskAssignUserId();
+		if (taskAssignUser != null) {
+			taskDto.setTaskAssignUserName(taskAssignUser.getUserName());
+			taskDto.setTaskAssignUserDesignation(taskAssignUser.getDesignation());
+			taskDto.setMobile(taskAssignUser.getMobile());
+		}
+
+		taskDto.setTaskEndDate(task.getTaskEndDate());
+
+		TaskPriority taskPriority = task.getTaskPriorityId();
+		if (taskPriority != null) {
+			taskDto.setPriority(taskPriority.getTaskPriorityName());
+		}
+
+		return taskDto;
+	}
 
 	@Override
-	public List<GetAllTaskDto> getAllTaskByEntityId(long entity_id) {
-	    MEntity entity = mEntityRepository.findById(entity_id).orElse(null);
+	public GetTaskDto getTaskDetailsByTaskId(long task_id) {
+		// TODO Auto-generated method stub
+		Task task = taskRepository.findById(task_id).get();
+		GetTaskDto getTaskDto = new GetTaskDto();
+		getTaskDto.setTaskId(task.getTaskId());
+		getTaskDto.setTaskName(task.getTaskName());
+		getTaskDto.setTaskDesc(task.getTaskDesc());
+		getTaskDto.setTaskAssignUserName(task.getTaskAssignUserId().getUserName());
+		getTaskDto.setMobile(task.getTaskAssignUserId().getMobile());
 
-	    List<GetAllTaskDto> tasksForEntity = taskRepository.findAll().stream()
-	            .filter(task -> {
-	                MEntity taskEntity = task.getEntityId();
-	                return (taskEntity != null && taskEntity.getEntityId() == entity_id)
-	                        || (entity != null && entity.getGroup_entities() != null && entity.getGroup_entities().stream()
-	                                .anyMatch(group -> group.getEntities().contains(taskEntity)));
-	            })
-	            .map(task -> {
-	                GetAllTaskDto taskDto = new GetAllTaskDto();
-	                taskDto.setTaskId(task.getTaskId());
-	                taskDto.setTaskName(task.getTaskName());
-	                taskDto.setTaskDesc(task.getTaskDesc());
+		getTaskDto.setPriority(task.getTaskPriorityId().getTaskPriorityName());
+		getTaskDto.setTaskAssignUserDesignation(task.getTaskAssignUserId().getDesignation());
+		getTaskDto.setTaskEndDate(task.getTaskEndDate());
 
-	                MUser taskAssignUser = task.getTaskAssignUserId();
-	                if (taskAssignUser != null) {
-	                    taskDto.setTaskAssignUserName(taskAssignUser.getUserName());
-	                    taskDto.setTaskAssignUserDesignation(taskAssignUser.getDesignation());
-	                }
-
-	                taskDto.setTaskEndDate(task.getTaskEndDate());
-
-	                TaskPriority taskPriority = task.getTaskPriorityId();
-	                if (taskPriority != null) {
-	                    taskDto.setPriority(taskPriority.getTaskPriorityName());
-	                }
-
-	                return taskDto;
-	            })
-	            .collect(Collectors.toList());
-
-	    return tasksForEntity;
+		return getTaskDto;
 	}
 
 }

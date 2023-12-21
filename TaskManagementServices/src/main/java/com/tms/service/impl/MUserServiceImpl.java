@@ -29,66 +29,65 @@ public class MUserServiceImpl implements MUserService {
 	private MRoleRepository mRoleRepository;
 
 	@Override
-	public Map<String, Object> validateUser(String userName, String password) {
-		Map<String, Object> result = new HashMap<>();
-
+	public boolean validateUser(String userName, String password) {
+		
+		boolean isValid = false;
 		try {
 			MUser muser = mUserRepository.findByUserName(userName)
-					.orElseThrow(() -> new UserNameNotFoundException("UserName not found"));
+					.orElseThrow(() -> new UserNameNotFoundException("UserName not found..!"));
 
 			if (muser.getUserName().equals(userName) && muser.getPassword().equals(password)) {
-				result.put("isValid", true);
-				result.put("message", "User validation successful");
 
+				isValid = true;
 			} else {
-				result.put("isValid", false);
-				result.put("message", "Invalid username or password");
+				isValid = false;
 			}
 		} catch (UserNameNotFoundException e) {
-			result.put("isValid", false);
-			result.put("message", e.getMessage());
+			
 		} catch (Exception e) {
-			result.put("isValid", false);
-			result.put("message", "An error occurred during validation");
+			
 		}
 
-		return result;
+		return isValid;
 	}
 
 	@Override
 	public UserDto createUser(UserDto dto) {
 		MUser mUser = new MUser();
-		mUser.setFullName(dto.getFullName());
-		mUser.setPassword(dto.getPassword());
-		mUser.setUserName(dto.getUserName());
-		mUser.setCreateDate(dto.getCreateDate());
-		mUser.setMobile(dto.getMobile());
-		mUser.setStatus(dto.getStatus());
-		
-		
-		if (dto.getRole() != null) {
-			MRole mRole = mRoleRepository.findById(Long.parseLong(dto.getRole()))
-					.orElseThrow(() -> new RoleNotFound("Role Not Found"));
-			mUser.setRoleId(mRole);
-			dto.setRole(mRole.getRoleName());
-		}else {
-			mUser.setRoleId(null);
-			dto.setRole(null);
-		}
+		if(dto!=null) {
+			mUser.setFullName(dto.getFullName());
+			mUser.setPassword(dto.getPassword());
+			mUser.setUserName(dto.getUserName());
+			mUser.setCreateDate(dto.getCreateDate());
+			mUser.setMobile(dto.getMobile());
+			mUser.setStatus(dto.getStatus());
+			mUser.setEmail(dto.getEmail());
 
-		if (dto.getEntity() != null) {
-			MEntity mEntity = mEntityRepository.findById(Long.parseLong(dto.getEntity()))
-					.orElseThrow(() -> new EntityNotFound("Entity Not Found"));
-			mUser.setEntityId(mEntity);
-			dto.setEntity(mEntity.getEntityName());
-			
-		}else {
-			mUser.setEntityId(null);
-			dto.setEntity(null);
+			if (dto.getRole() != null) {
+				MRole mRole = mRoleRepository.findById(Long.parseLong(dto.getRole()))
+						.orElseThrow(() -> new RoleNotFound("Role Not Found"));
+				mUser.setRoleId(mRole);
+				dto.setRole(mRole.getRoleName());
+			} else {
+				mUser.setRoleId(null);
+				dto.setRole(null);
+			}
+
+			if (dto.getEntity() != null) {
+				MEntity mEntity = mEntityRepository.findById(Long.parseLong(dto.getEntity()))
+						.orElseThrow(() -> new EntityNotFound("Entity Not Found"));
+				mUser.setEntityId(mEntity);
+				dto.setEntity(mEntity.getEntityName());
+
+			} else {
+				mUser.setEntityId(null);
+				dto.setEntity(null);
+			}
+			mUserRepository.save(mUser);
+			dto.setUserId(mUser.getUserId());
 		}
-		mUserRepository.save(mUser);
-		dto.setUserId(mUser.getUserId());
 		
+
 		return dto;
 	}
 }

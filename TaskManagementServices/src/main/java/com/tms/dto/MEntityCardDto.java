@@ -17,8 +17,8 @@ public class MEntityCardDto {
 	
 	private long open;
 	
-	private long closed;
+	private long inProgress;
 	
-	private long pending;
+	private long overdue;
 
 }

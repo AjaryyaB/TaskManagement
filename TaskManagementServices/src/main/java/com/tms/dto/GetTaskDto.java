@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class GetAllTaskDto {
+public class GetTaskDto {
 	private long taskId;
 	private String taskName;
 	private String taskDesc;
@@ -17,4 +17,5 @@ public class GetAllTaskDto {
 	private String priority;
 	private String taskAssignUserDesignation;
 	private LocalDate taskEndDate;	
+	private long mobile;
 }

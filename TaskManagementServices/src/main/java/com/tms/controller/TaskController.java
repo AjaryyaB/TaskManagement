@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.tms.dto.GetAllTaskDto;
+import com.tms.dto.GetTaskDto;
 import com.tms.dto.TaskDto;
 import com.tms.service.TaskService;
 
@@ -35,11 +35,17 @@ public class TaskController {
 	
 	@GetMapping("/getAllTaskByEntityId")
 	@ResponseStatus(value = HttpStatus.OK)
-	public List<GetAllTaskDto> getAllTaskByEntityId(@Valid @RequestParam long entity_id) {
+	public List<GetTaskDto> getAllTaskByEntityId(@Valid @RequestParam long entity_id) {
 		return taskService.getAllTaskByEntityId(entity_id);
 	}
 	
 	
+	
+	@GetMapping("/getTaskById")
+	@ResponseStatus(value = HttpStatus.OK)
+	public GetTaskDto getTaskDetailsByTaskId(@Valid @RequestParam long task_id) {
+		return taskService.getTaskDetailsByTaskId(task_id);
+	}
 	
 	
 }

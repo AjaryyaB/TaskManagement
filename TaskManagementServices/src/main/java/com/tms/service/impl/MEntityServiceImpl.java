@@ -61,24 +61,24 @@ public class MEntityServiceImpl implements MEntityService {
 
 	        // Initialize counts for each entity
 	        long openCount = 0;
-	        long closedCount = 0;
-	        long pendingCount = 0;
+	        long inProgressCount = 0;
+	        long overdueCount = 0;
 
 	        // Calculate counts for different task statuses
 	        for (Task task : entityTasks) {
 	            if (task.getTaskStatus().equalsIgnoreCase("open")) {
 	                openCount++;
-	            } else if (task.getTaskStatus().equalsIgnoreCase("closed")) {
-	                closedCount++;
-	            } else if (task.getTaskStatus().equalsIgnoreCase("pending")) {
-	                pendingCount++;
+	            } else if (task.getTaskStatus().equalsIgnoreCase("inProgress")) {
+	            	inProgressCount++;
+	            } else if (task.getTaskStatus().equalsIgnoreCase("overdue")) {
+	            	overdueCount++;
 	            }
 	        }
 
 	        // Set counts in the DTO
 	        cardDto.setOpen(openCount);
-	        cardDto.setClosed(closedCount);
-	        cardDto.setPending(pendingCount);
+	        cardDto.setInProgress(inProgressCount);
+	        cardDto.setOverdue(overdueCount);
 
 	        mEntities.add(cardDto);
 	    }

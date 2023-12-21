@@ -42,6 +42,8 @@ dependencies:
   pinput: ^3.0.1
   intl: ^0.17.0
   syncfusion_flutter_datepicker: ^21.2.3
+  path_provider: ^2.1.1
+  path_provider_foundation: ^2.3.1
 
 dev_dependencies:
   flutter_test:
@@ -119,6 +121,9 @@ flutter:
      - assets/images/Iconly-Light-Outline-Tick-Square.png
      - assets/images/Iconly-Light-Outline-Tick-Square@2x.png
      - assets/images/Iconly-Light-Outline-Tick-Square@3x.png
+     - assets/images/Iconly-Bold-Profile.png
+     - assets/images/Iconly-Bold-Profile@2x.png
+     - assets/images/Iconly-Bold-Profile@2x.png
 
 
   # To add assets to your application, add an assets section, like this:

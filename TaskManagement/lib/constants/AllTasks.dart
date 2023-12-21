@@ -37,7 +37,7 @@ class _AllTasksState extends State<AllTasks>
     // Load your JSON data here
     String jsonString = '''
 [
-  {s
+  {
     "taskId": 1,
     "assignee": "Edward",
     "designation": "CEO",

@@ -105,7 +105,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                                   ),
                                   BuildTextFormField.buildTextFormField(
                                       "Enter Email",
-                                      AppConstants.personIcon,
+                                      AppConstants.email,
                                       emailController),
                                   SizedBox(
                                     height: screenSize.height * 0.050,

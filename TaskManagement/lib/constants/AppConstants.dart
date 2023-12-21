@@ -25,7 +25,12 @@ class AppConstants {
   static const Color boldBlue1 = Color.fromRGBO(46, 42, 96, 1);
 
   //Icons
-  static Image personIcon = Image.asset(
+  // static Image personIcon = Image.asset(
+  //   'assets/images/Iconly-Bold_Profile',
+  //   // height: 24,
+  //   // width: 24,
+  // );
+  static Image email = Image.asset(
     'assets/images/mail.png',
     height: 24,
     width: 24,

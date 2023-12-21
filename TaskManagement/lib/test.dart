@@ -235,16 +235,16 @@ class _TestState extends State<Test> {
   List<String> radioLabels = ['High', 'Medium', 'Low'];
 
   void _openFileExplorer() async {
-    // FilePickerResult? result = await FilePicker.platform.pickFiles();
-    //
-    // if (result != null) {
-    //   // Do something with the selected files (result.files)
-    //   // For example, you can get the paths of the selected files:
-    //   List<String> filePaths = result.paths.map((path) => path!).toList();
-    //   print('Selected files: $filePaths');
-    // } else {
-    //   // User canceled the file picker
-    // }
+    FilePickerResult? result = await FilePicker.platform.pickFiles();
+
+    if (result != null) {
+      // Do something with the selected files (result.files)
+      // For example, you can get the paths of the selected files:
+      List<String> filePaths = result.paths.map((path) => path!).toList();
+      print('Selected files: $filePaths');
+    } else {
+      // User canceled the file picker
+    }
   }
 
 

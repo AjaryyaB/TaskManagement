@@ -62,6 +62,8 @@ public class MUserServiceImpl implements MUserService {
 			mUser.setMobile(dto.getMobile());
 			mUser.setStatus(dto.getStatus());
 			mUser.setEmail(dto.getEmail());
+			mUser.setDefaultUser(dto.isDefaultUser());
+			mUser.setDesignation(dto.getDesignation());
 
 			if (dto.getRole() != null) {
 				MRole mRole = mRoleRepository.findById(Long.parseLong(dto.getRole()))

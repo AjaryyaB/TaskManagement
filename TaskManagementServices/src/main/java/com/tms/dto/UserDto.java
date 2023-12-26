@@ -28,6 +28,10 @@ public class UserDto {
 	private String entity;
 	
 	private String email;
+	
+	private String designation;
+	
+	private boolean defaultUser;
 //	private LocalDate endDate;
 
 	private Long mobile;
